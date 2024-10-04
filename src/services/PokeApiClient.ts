@@ -1,12 +1,10 @@
-// src/services/PokeApiClient.ts
-
-import { Pokemon, PokemonData, PokemonDetail } from './InterfacePokeApiClient'
+import { IPokemon, IPokemonDetail } from './InterfacePokeApiClient'
 
 class PokeApiClient {
   private baseURL = 'https://pokeapi.co/api/v2'
   private caughtKey = 'caught-pokemons' // Key for localStorage
 
-  fetchAllPokemons = async (offset: number): Promise<Pokemon[]> => {
+  fetchAllPokemons = async (offset: number): Promise<IPokemon[]> => {
     try {
       const response = await fetch(
         `${this.baseURL}/pokemon?limit=100&offset=${offset}`
@@ -20,7 +18,7 @@ class PokeApiClient {
     }
   }
 
-  fetchPokemonDetails = async (pokemonUrl: string): Promise<PokemonDetail> => {
+  fetchPokemonDetails = async (pokemonUrl: string): Promise<IPokemonDetail> => {
     try {
       const response = await fetch(`${this.baseURL}/pokemon/${pokemonUrl}/`)
       const pokemonDetail = await response.json()

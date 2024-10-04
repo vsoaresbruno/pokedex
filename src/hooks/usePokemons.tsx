@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { PokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { pokeApiClient } from '../services/PokeApiClient'
 interface Pokemon {
   name: string
@@ -8,7 +8,7 @@ interface Pokemon {
 
 export const usePokemons = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
-  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetail[]>([])
+  const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetail[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [offset, setOffset] = useState<number>(0)
   const [error, setError] = useState<string | null>(null)
@@ -49,11 +49,13 @@ export const usePokemons = () => {
         const fetchedDetails = await Promise.all(fetchDetailsPromises)
         setPokemonDetails([
           ...pokemonDetails,
-          ...fetchedDetails.filter((detail) => detail !== null),
+          ...fetchedDetails.filter(
+            (detail): detail is IPokemonDetail => detail !== null
+          ),
         ])
         setIsLoading(false)
       } catch (error: unknown) {
-        setError(error as string)
+        setError(error instanceof Error ? error.message : String(error))
       }
     }
 
