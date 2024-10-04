@@ -1,9 +1,14 @@
-import { usePokemons } from '../hooks/usePokemons'
 import { Link } from 'react-router-dom'
+import PokemonDetail from './PokemonDetail'
+import { usePokemons } from '../hooks/usePokemons'
+import { usePokemonDetails } from '@/hooks/usePokemonDetails'
 
 const Pokemons = () => {
   const { handleIsCaught, handleCatch, pokemonDetails, isLoading } =
     usePokemons()
+
+  const { handleSelectPokemon, handleCloseDetail, selectedPokemon } =
+    usePokemonDetails(pokemonDetails)
 
   return (
     <>
@@ -20,7 +25,11 @@ const Pokemons = () => {
         >
           {pokemonDetails.map(({ name, sprites }, index) => (
             <div key={`${name}-${index}`} className="pokemon-item">
-              <img src={sprites.front_default} alt={name} />
+              <img
+                src={sprites.front_default}
+                alt={name}
+                onClick={() => handleSelectPokemon(name)}
+              />
               <p>{name}</p>
               <button
                 onClick={() =>
@@ -32,6 +41,12 @@ const Pokemons = () => {
             </div>
           ))}
         </div>
+        {selectedPokemon && (
+          <PokemonDetail
+            pokemon={selectedPokemon}
+            onClose={handleCloseDetail}
+          />
+        )}
       </div>
       {isLoading && <p>Loading...</p>}
     </>
