@@ -69,13 +69,6 @@ export const usePokemons = () => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(offset)
-    return () => {
-      console.log(offset)
-    }
-  }, [offset])
-
   const loadMorePokemons = async () => {
     setOffset((prevOffset) => prevOffset + 100)
   }
