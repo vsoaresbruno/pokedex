@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { pokeApiClient } from '../services/PokeApiClient'
-interface Pokemon {
+import { addPokemon } from '../services/db'
+
+interface IPokemon {
   name: string
   url: string
 }
 
 export const usePokemons = () => {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([])
+  const [pokemons, setPokemons] = useState<IPokemon[]>([])
   const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetail[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [offset, setOffset] = useState<number>(0)
@@ -28,23 +30,23 @@ export const usePokemons = () => {
 
   const handleCatch = async (pokemonName: string) => {
     try {
-      const pokemonDetail = await fetchPokemonDetails(pokemonName)
+      const pokemonDetails = await fetchPokemonDetails(pokemonName)
 
-      if (pokemonDetail) {
-        const updatedCaughtPokemons = [...caughtPokemons, pokemonDetail]
-        setCaughtPokemons(updatedCaughtPokemons)
+      if (pokemonDetails) {
+        await addPokemon(pokemonDetails)
 
-        localStorage.setItem(
-          'caughtPokemons',
-          JSON.stringify(updatedCaughtPokemons)
-        )
+        setCaughtPokemons((prevCaughtPokemons) => [
+          ...prevCaughtPokemons,
+          pokemonDetails,
+        ])
 
         alert(`${pokemonName} has been caught!`)
       } else {
-        throw new Error(`Failed to fetch details for ${pokemonName}`)
+        alert(`Failed to fetch details for ${pokemonName}`)
       }
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : String(error))
+    } catch (error) {
+      console.error('Error catching the Pokémon:', error)
+      alert('There was an error catching the Pokémon. Please try again.')
     }
   }
 

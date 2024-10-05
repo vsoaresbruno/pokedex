@@ -1,5 +1,6 @@
 import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { useState, useEffect } from 'react'
+import { getAllPokemons, addPokemon, removePokemon } from '../services/db'
 
 type SortOption = 'name' | 'height' | 'timestamp'
 type SortDirection = 'asc' | 'desc'
@@ -17,25 +18,37 @@ export const useCaughtPokemons = () => {
   const [sortOption, setSortOption] = useState<SortOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({})
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([])
 
   useEffect(() => {
-    const getCaughtPokemons = () => {
+    const getCaughtPokemons = async () => {
       setIsLoading(true)
 
-      const storedCaughtPokemons = JSON.parse(
-        localStorage.getItem('caughtPokemons') || '[]'
-      )
+      // Obter os Pokémon armazenados no IndexedDB
+      const storedCaughtPokemons = await getAllPokemons()
+
       if (storedCaughtPokemons.length > 0) {
         setCaughtPokemons(storedCaughtPokemons)
       }
+
       setIsLoading(false)
     }
+
     getCaughtPokemons()
   }, [])
 
   useEffect(() => {
     applyFiltersAndSort()
   }, [caughtPokemons, filterOptions, sortOption, sortDirection])
+
+  const handleTypeChange = (type: string) => {
+    setSelectedTypes(
+      (prevSelectedTypes) =>
+        prevSelectedTypes.includes(type)
+          ? prevSelectedTypes.filter((t) => t !== type) // Remove o tipo se já estiver selecionado
+          : [...prevSelectedTypes, type] // Adiciona o tipo se não estiver selecionado
+    )
+  }
 
   const applyFiltersAndSort = () => {
     let pokemons = [...caughtPokemons]
@@ -91,14 +104,16 @@ export const useCaughtPokemons = () => {
     )
   }
 
-  const removeSelectedPokemons = () => {
+  const removeSelectedPokemons = async () => {
     const remainingPokemons = caughtPokemons.filter(
       (pokemon) => !pokemonsToRemove.includes(pokemon.name)
     )
     setCaughtPokemons(remainingPokemons)
 
-    // Atualizar o localStorage com a nova lista de Pokémon capturados
-    localStorage.setItem('caughtPokemons', JSON.stringify(remainingPokemons))
+    // Remover os Pokémon selecionados do IndexedDB
+    for (const pokemonName of pokemonsToRemove) {
+      await removePokemon(pokemonName)
+    }
 
     setPokemonsToRemove([]) // Limpa a seleção após a remoção
   }
