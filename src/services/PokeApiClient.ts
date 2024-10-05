@@ -30,6 +30,18 @@ class PokeApiClient {
     }
   }
 
+  fetchAllTypes = async (): Promise<IPokemon[]> => {
+    try {
+      const response = await fetch(`${this.baseURL}/type`)
+      const pokemonTypes = await response.json()
+
+      return pokemonTypes.results
+    } catch (error) {
+      console.error('Error fetching Pokémon types:', error)
+      throw new Error(`Error fetching Pokémon data: ${error}`)
+    }
+  }
+
   // Mark Pokémon as caught by name
   markAsCaught(pokemonName: string) {
     const caughtPokemons = this.getCaughtPokemons()
