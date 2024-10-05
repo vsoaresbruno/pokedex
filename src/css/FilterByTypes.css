@@ -1,0 +1,22 @@
+.type-checkbox {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white; /* Cor do texto */
+  background-color: none;
+  opacity: 0.5;
+}
+
+.type-checkbox input {
+  display: none; /* Esconde o checkbox padrão */
+}
+
+/* Estilo da tag quando selecionada */
+.type-checkbox.selected {
+  opacity: 1;
+}

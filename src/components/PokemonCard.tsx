@@ -18,11 +18,25 @@ export const PokemonCard = ({
   const { name, sprites } = pokemon
 
   return (
-    <div key={`${name}`} className="pokemon-item">
+    <div
+      key={`${name}`}
+      className="pokemon-item"
+      style={{
+        position: 'relative',
+        background: '#FFF',
+        borderRadius: '10px',
+        padding: '2em',
+      }}
+      onClick={() => handleSelectPokemon(name)}
+    >
       <img
         src={sprites.front_default}
         alt={name}
-        onClick={() => handleSelectPokemon(name)}
+        style={{
+          position: 'absolute',
+          top: '-50px',
+          left: '2.5em',
+        }}
       />
       <p>{name}</p>
       {handleCatch && handleIsCaught && (

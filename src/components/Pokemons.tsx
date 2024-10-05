@@ -11,7 +11,7 @@ const Pokemons = () => {
   return (
     <>
       <h1>Pokémon List</h1>
-      <Link to="/caught">Caught Pokémon</Link>
+      <Link to="/caught">My Pokedex</Link>
       <PokemonList
         pokemonList={pokemonDetails}
         handleIsCaught={handleIsCaught}

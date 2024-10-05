@@ -31,7 +31,8 @@ export const PokemonList = ({
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gap: '20px',
+            gap: '60px 20px',
+            marginTop: '5em',
           }}
         >
           {pokemonList.map((pokemon, index) => (

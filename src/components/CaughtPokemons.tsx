@@ -2,13 +2,13 @@ import { useCaughtPokemons } from '@hooks/useCaughtPokemonsSorting'
 import { Link } from 'react-router-dom'
 import { PokemonList } from './PokemonList'
 import { useState } from 'react'
+import { FilterByTypes } from './FilterByTypes'
 
 function CaughtPokemonsPage() {
   const {
     removeSelectedPokemons,
     togglePokemonToRemove,
     pokemonsToRemove,
-    caughtPokemons,
     filteredPokemons,
     setFilter,
     setSort,
@@ -31,20 +31,26 @@ function CaughtPokemonsPage() {
   const handleSortToggle = () => {
     const newDirection = sortDirection === 'asc' ? 'desc' : 'asc'
     setSortDirection(newDirection)
-    setSort('name', newDirection) // Alterna a ordenação por nome
+    setSort('name', newDirection)
   }
 
   return (
     <>
-      <h1>Caught Pokémon</h1>
-      <Link to="/">Back to Pokémon List</Link>
-      <button onClick={handleSortToggle}>
-        Sort by Name ({sortDirection === 'asc' ? 'Desc' : 'Asc'})
-      </button>
-      <button onClick={() => handleSort('height')}>Sort by Height</button>
-      <button onClick={() => handleSort('timestamp')}>Sort by Timestamp</button>
+      <h1>My Pokedex</h1>
+      <p>
+        <Link to="/">Back to Pokémon List</Link>
+      </p>
+      <div>
+        <button onClick={handleSortToggle}>
+          Sort by Name ({sortDirection === 'asc' ? 'Desc' : 'Asc'})
+        </button>
+        <button onClick={() => handleSort('height')}>Sort by Height</button>
+        <button onClick={() => handleSort('timestamp')}>
+          Sort by Timestamp
+        </button>
+      </div>
+      <FilterByTypes setFilter={setFilter} />
 
-      <button onClick={handleFilter}>Apply Filters</button>
       <PokemonList
         pokemonList={filteredPokemons}
         togglePokemonToRemove={togglePokemonToRemove}
