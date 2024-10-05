@@ -1,4 +1,3 @@
-import React from 'react'
 import PokemonDetail from './PokemonDetail'
 import { usePokemonDetails } from '../hooks/usePokemonDetails'
 import { PokemonCard } from './PokemonCard'
@@ -8,12 +7,18 @@ interface IPokemonListProps {
   pokemonList: IPokemonDetail[]
   handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
+  togglePokemonToRemove?: (name: string) => void
+  pokemonsToRemove?: string[]
+  removeSelectedPokemons?: () => void
 }
 
 export const PokemonList = ({
   pokemonList,
   handleIsCaught,
   handleCatch,
+  togglePokemonToRemove,
+  pokemonsToRemove,
+  removeSelectedPokemons,
 }: IPokemonListProps) => {
   const { handleSelectPokemon, handleCloseDetail, selectedPokemon } =
     usePokemonDetails(pokemonList)
@@ -36,6 +41,8 @@ export const PokemonList = ({
               handleSelectPokemon={handleSelectPokemon}
               handleIsCaught={handleIsCaught}
               handleCatch={handleCatch}
+              togglePokemonToRemove={togglePokemonToRemove}
+              pokemonsToRemove={pokemonsToRemove}
             />
           ))}
         </div>
@@ -44,6 +51,12 @@ export const PokemonList = ({
             pokemon={selectedPokemon}
             onClose={handleCloseDetail}
           />
+        )}
+
+        {pokemonsToRemove && pokemonsToRemove.length > 0 && (
+          <button onClick={removeSelectedPokemons}>
+            Remove Selected Pokémons
+          </button>
         )}
       </div>
     </>

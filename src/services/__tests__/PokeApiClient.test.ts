@@ -83,7 +83,7 @@ describe('PokeApiClient', () => {
       pokeApiClient.markAsCaught('bulbasaur')
 
       expect(localStorage.setItem).toHaveBeenCalledWith(
-        'caught-pokemons',
+        'caughtPokemons',
         JSON.stringify(['bulbasaur'])
       )
     })

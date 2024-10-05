@@ -2,7 +2,7 @@ import { IPokemon, IPokemonDetail } from './InterfacePokeApiClient'
 
 class PokeApiClient {
   private baseURL = 'https://pokeapi.co/api/v2'
-  private caughtKey = 'caught-pokemons' // Key for localStorage
+  private caughtKey = 'caughtPokemons' // Key for localStorage
 
   fetchAllPokemons = async (offset: number): Promise<IPokemon[]> => {
     try {

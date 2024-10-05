@@ -3,6 +3,8 @@ interface Pokemon {
   handleSelectPokemon: (name: string) => void
   handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
+  togglePokemonToRemove?: (name: string) => void
+  pokemonsToRemove?: string[]
 }
 
 export const PokemonCard = ({
@@ -10,6 +12,8 @@ export const PokemonCard = ({
   handleSelectPokemon,
   handleIsCaught,
   handleCatch,
+  togglePokemonToRemove,
+  pokemonsToRemove,
 }: Pokemon) => {
   const { name, sprites } = pokemon
 
@@ -27,6 +31,13 @@ export const PokemonCard = ({
         >
           {handleIsCaught(name) ? 'Caught' : 'Catch'}
         </button>
+      )}
+      {togglePokemonToRemove && pokemonsToRemove && (
+        <input
+          type="checkbox"
+          checked={pokemonsToRemove.includes(pokemon.name)}
+          onChange={() => togglePokemonToRemove(pokemon.name)}
+        />
       )}
     </div>
   )
