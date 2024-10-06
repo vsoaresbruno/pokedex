@@ -1,5 +1,4 @@
 import { useCaughtPokemons } from '@/hooks/useCaughtPokemons'
-import { Link } from 'react-router-dom'
 import { PokemonList } from './PokemonList'
 import { useContext, useState } from 'react'
 import { FilterByTypes } from './FilterByTypes'
@@ -40,9 +39,6 @@ function CaughtPokemonsPage() {
   return (
     <>
       <h1>My Pokedex</h1>
-      <p>
-        <Link to="/">Back to Pokémon List</Link>
-      </p>
       <p>{caughtPokemonProgress}</p>
       <div>
         <button onClick={handleSortToggle}>

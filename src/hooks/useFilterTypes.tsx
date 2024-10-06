@@ -33,7 +33,6 @@ export const useFilterTypes = ({ setFilter }: IFilterTypes) => {
       setIsLoading(true)
       try {
         const fetchedPokemonTypes = await fetchAllTypes()
-        console.log('fetchPokemonTypes')
         const typesNames = fetchedPokemonTypes.map((pokemon) => pokemon.name)
         setPokemonTypes(typesNames)
 

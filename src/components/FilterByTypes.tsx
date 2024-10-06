@@ -1,4 +1,4 @@
-import { TYPE_COLORS } from '@/consts/constants'
+import { TYPE_COLORS } from '@/utils/constants'
 import { useFilterTypes } from '@/hooks/useFilterTypes'
 import '../css/FilterByTypes.css'
 
@@ -46,7 +46,7 @@ export const FilterByTypes = ({ setFilter }: IFilterByTypes) => {
           cursor: 'pointer',
         }}
       >
-        Clear types
+        All types
       </label>
     </div>
   )

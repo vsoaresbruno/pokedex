@@ -1,5 +1,6 @@
-interface Pokemon {
-  pokemon: { name: string; sprites: { front_default: string } }
+import '../css/PokemonCard.css'
+interface IPokemonCard {
+  pokemon: { id: number; name: string; sprites: { front_default: string } }
   handleSelectPokemon: (name: string) => void
   handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
@@ -14,45 +15,42 @@ export const PokemonCard = ({
   handleCatch,
   togglePokemonToRemove,
   pokemonsToRemove,
-}: Pokemon) => {
-  const { name, sprites } = pokemon
+}: IPokemonCard) => {
+  const { id, name, sprites } = pokemon
 
   return (
-    <div
-      key={`${name}`}
-      className="pokemon-item"
-      style={{
-        position: 'relative',
-        background: '#FFF',
-        borderRadius: '10px',
-        padding: '2em',
-      }}
-      onClick={() => handleSelectPokemon(name)}
-    >
-      <img
-        src={sprites.front_default}
-        alt={name}
-        style={{
-          position: 'absolute',
-          top: '-50px',
-          left: '2.5em',
-        }}
-      />
-      <p>{name}</p>
-      {handleCatch && handleIsCaught && (
-        <button
-          onClick={() => (handleIsCaught(name) ? null : handleCatch(name))}
+    <>
+      <div key={`${name}`} className="pokemon-card">
+        <div
+          className="pokemon-card__content"
+          onClick={() => handleSelectPokemon(name)}
         >
-          {handleIsCaught(name) ? 'Caught' : 'Catch'}
-        </button>
-      )}
-      {togglePokemonToRemove && pokemonsToRemove && (
-        <input
-          type="checkbox"
-          checked={pokemonsToRemove.includes(pokemon.name)}
-          onChange={() => togglePokemonToRemove(pokemon.name)}
-        />
-      )}
-    </div>
+          <img
+            src={sprites.front_default}
+            alt={name}
+            className="pokemon-card__image"
+          />
+          <p className="pokemon-card__id">
+            <b>#{id}</b>
+          </p>
+          <p className="pokemon-card__title">{name}</p>
+        </div>
+        {handleCatch && handleIsCaught && (
+          <button
+            onClick={() => (handleIsCaught(name) ? null : handleCatch(name))}
+            disabled={handleIsCaught(name)}
+          >
+            Catch
+          </button>
+        )}
+        {togglePokemonToRemove && pokemonsToRemove && (
+          <input
+            type="checkbox"
+            checked={pokemonsToRemove.includes(pokemon.name)}
+            onChange={() => togglePokemonToRemove(pokemon.name)}
+          />
+        )}
+      </div>
+    </>
   )
 }

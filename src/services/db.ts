@@ -1,4 +1,5 @@
 import { openDB } from 'idb'
+import { IPokemonDetail } from './InterfacePokeApiClient'
 
 const DB_NAME = 'PokemonDB'
 const STORE_NAME = 'caughtPokemons'
@@ -15,7 +16,7 @@ export const initDB = async () => {
   })
 }
 
-export const addPokemon = async (pokemon: string) => {
+export const addPokemon = async (pokemon: IPokemonDetail) => {
   const db = await initDB()
   const tx = db.transaction(STORE_NAME, 'readwrite')
   const store = tx.objectStore(STORE_NAME)

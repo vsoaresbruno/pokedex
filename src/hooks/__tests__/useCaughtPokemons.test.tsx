@@ -97,6 +97,7 @@ describe('useCaughtPokemons hook', () => {
       weight: 0,
       stats: [],
       types: [],
+      id: 0,
     })
     vi.mocked(pokeApiClient.fetchPokemonDetails).mockResolvedValueOnce({
       name: 'charmander',
@@ -107,6 +108,7 @@ describe('useCaughtPokemons hook', () => {
       weight: 0,
       stats: [],
       types: [],
+      id: 0,
     }) // Simulate details
 
     const { result } = renderHook(() => useCaughtPokemons())

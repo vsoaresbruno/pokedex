@@ -2,7 +2,7 @@ import PokemonDetail from './PokemonDetail'
 import { usePokemonDetails } from '../hooks/usePokemonDetails'
 import { PokemonCard } from './PokemonCard'
 import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
-
+import '../css/PokemonList.css'
 interface IPokemonListProps {
   pokemonList: IPokemonDetail[]
   handleIsCaught?: (name: string) => boolean
@@ -25,16 +25,13 @@ export const PokemonList = ({
 
   return (
     <>
+      {pokemonsToRemove && pokemonsToRemove.length > 0 && (
+        <button onClick={removeSelectedPokemons}>
+          Remove Selected Pokémons
+        </button>
+      )}
       <div className="wrapper" style={{ display: 'flex' }}>
-        <div
-          className="pokemon-list"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gap: '60px 20px',
-            marginTop: '5em',
-          }}
-        >
+        <div className="pokemon-list">
           {pokemonList.map((pokemon, index) => (
             <PokemonCard
               key={index}
@@ -52,12 +49,6 @@ export const PokemonList = ({
             pokemon={selectedPokemon}
             onClose={handleCloseDetail}
           />
-        )}
-
-        {pokemonsToRemove && pokemonsToRemove.length > 0 && (
-          <button onClick={removeSelectedPokemons}>
-            Remove Selected Pokémons
-          </button>
         )}
       </div>
     </>
