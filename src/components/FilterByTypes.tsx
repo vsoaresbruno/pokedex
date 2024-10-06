@@ -1,4 +1,4 @@
-import { POKEMON_TYPES, TYPE_COLORS } from '@/consts/constants'
+import { TYPE_COLORS } from '@/consts/constants'
 import { useFilterTypes } from '@/hooks/useFilterTypes'
 import '../css/FilterByTypes.css'
 
@@ -15,6 +15,10 @@ export const FilterByTypes = ({ setFilter }: IFilterByTypes) => {
   } = useFilterTypes({
     setFilter,
   })
+
+  if (isLoading) {
+    return <div>Loading types...</div>
+  }
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { pokeApiClient } from '@/services/PokeApiClient'
+import { pokeApiClient } from '../services/PokeApiClient'
 import { useEffect, useState } from 'react'
 
 interface IFilterTypes {
@@ -21,7 +21,7 @@ export const useFilterTypes = ({ setFilter }: IFilterTypes) => {
   }
 
   const clearFilter = () => {
-    setSelectedTypes([]) // Limpa todas as seleções
+    setSelectedTypes([])
   }
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export const useFilterTypes = ({ setFilter }: IFilterTypes) => {
       setIsLoading(true)
       try {
         const fetchedPokemonTypes = await fetchAllTypes()
+        console.log('fetchPokemonTypes')
         const typesNames = fetchedPokemonTypes.map((pokemon) => pokemon.name)
         setPokemonTypes(typesNames)
 
@@ -44,6 +45,7 @@ export const useFilterTypes = ({ setFilter }: IFilterTypes) => {
 
     fetchPokemonTypes()
   }, [])
+
   return {
     isLoading,
     pokemonTypes,

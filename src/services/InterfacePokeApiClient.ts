@@ -3,6 +3,11 @@ export interface IPokemon {
   url: string
 }
 
+export interface IAllPokemons {
+  count: number
+  results: IPokemon[]
+}
+
 export interface IPokemonData {
   name: string
   sprites: {
@@ -11,6 +16,7 @@ export interface IPokemonData {
 }
 export interface IPokemonList {
   results: IPokemon[]
+  count: number
 }
 export interface IPokemonDetail {
   name: string
@@ -22,10 +28,14 @@ export interface IPokemonDetail {
   stats: {
     name: string
     base_stat: number
+    stat: {
+      name: string
+    }
   }[]
   types: {
     type: {
       name: string
     }
   }[]
+  capturedAt?: string
 }

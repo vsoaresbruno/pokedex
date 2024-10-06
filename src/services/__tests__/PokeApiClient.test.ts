@@ -78,63 +78,28 @@ describe('PokeApiClient', () => {
     })
   })
 
-  describe('markAsCaught', () => {
-    it('should mark a pokemon as caught and store it in localStorage', () => {
-      pokeApiClient.markAsCaught('bulbasaur')
+  describe('fetchAllTypes', () => {
+    it('should fetch the pokemons types successfully', async () => {
+      const mockResponse = {
+        results: [
+          { name: 'dragon', url: 'https://pokeapi.co/api/v2/type/dragon' },
+        ],
+      }
+      mockFetch.mockResolvedValueOnce({
+        json: vi.fn().mockResolvedValueOnce(mockResponse),
+      })
+      const pokemons = await pokeApiClient.fetchAllTypes()
 
-      expect(localStorage.setItem).toHaveBeenCalledWith(
-        'caughtPokemons',
-        JSON.stringify(['bulbasaur'])
+      expect(pokemons).toEqual(mockResponse.results)
+      expect(fetch).toHaveBeenCalledWith('https://pokeapi.co/api/v2/type')
+    })
+
+    it('should throw an error if the API request fails', async () => {
+      mockFetch.mockRejectedValueOnce(new Error('API Error'))
+
+      await expect(pokeApiClient.fetchAllTypes()).rejects.toThrow(
+        'Error fetching Pokémon data: Error: API Error'
       )
     })
-    it('should not mark the same pokemon twice', () => {
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(['bulbasaur'])
-      )
-
-      pokeApiClient.markAsCaught('bulbasaur')
-
-      expect(localStorage.setItem).not.toHaveBeenCalled()
-    })
-  })
-
-  describe('getCaughtPokemons', () => {
-    it('should return a list of caught pokemons', () => {
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(['bulbasaur', 'pikachu'])
-      )
-
-      const caughtPokemons = pokeApiClient.getCaughtPokemons()
-
-      expect(caughtPokemons).toEqual(['bulbasaur', 'pikachu'])
-    })
-    it('should return an empty array if no pokemons are caught', () => {
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(null)
-
-      const caughtPokemons = pokeApiClient.getCaughtPokemons()
-
-      expect(caughtPokemons).toEqual([])
-    })
-  })
-})
-
-describe('isCaught', () => {
-  it('should return true if the pokemon is caught', () => {
-    vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-      JSON.stringify(['bulbasaur'])
-    )
-
-    const isCaught = pokeApiClient.isCaught('bulbasaur')
-
-    expect(isCaught).toBe(true)
-  })
-  it('should return false if the pokemon is not caught', () => {
-    vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-      JSON.stringify(['pikachu'])
-    )
-
-    const isCaught = pokeApiClient.isCaught('bulbasaur')
-
-    expect(isCaught).toBe(false)
   })
 })

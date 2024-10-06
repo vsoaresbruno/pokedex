@@ -7,20 +7,27 @@ interface PokemonDetailProps {
 }
 
 const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon, onClose }) => {
+  let pokemonCapturedAt
   if (!pokemon) return null
+
+  if (pokemon.capturedAt) {
+    const date = new Date(pokemon.capturedAt)
+    pokemonCapturedAt = date.toLocaleString()
+  }
 
   return (
     <div className="pokemon-detail">
       <button onClick={onClose}>Close</button>
-      <h2>{pokemon.name}</h2>
       <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+      <h2>{pokemon.name}</h2>
+      <p>Captured at: {pokemonCapturedAt}</p>
       <p>Height: {pokemon.height}</p>
       <p>Weight: {pokemon.weight}</p>
       <h3>Stats</h3>
       <ul>
         {pokemon.stats.map((stat, index) => (
           <li key={index}>
-            {stat.name}: {stat.base_stat}
+            {stat.stat.name}: {stat.base_stat}
           </li>
         ))}
       </ul>

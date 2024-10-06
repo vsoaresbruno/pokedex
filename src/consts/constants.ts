@@ -1,17 +1,3 @@
-export const POKEMON_TYPES = [
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'flying',
-  'rock',
-  'psychic',
-  'dark',
-  'fairy',
-  'ice',
-  'steel',
-]
-
 export const TYPE_COLORS: { [key: string]: string } = {
   normal: '#A8A77A',
   fighting: '#C22E28',

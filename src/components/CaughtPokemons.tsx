@@ -1,10 +1,13 @@
-import { useCaughtPokemons } from '@hooks/useCaughtPokemonsSorting'
+import { useCaughtPokemons } from '@/hooks/useCaughtPokemons'
 import { Link } from 'react-router-dom'
 import { PokemonList } from './PokemonList'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { FilterByTypes } from './FilterByTypes'
+import { PokemonContext } from '@/context/PokemonContext'
 
 function CaughtPokemonsPage() {
+  const { caughtPokemonProgress } = useContext(PokemonContext)
+
   const {
     removeSelectedPokemons,
     togglePokemonToRemove,
@@ -16,9 +19,9 @@ function CaughtPokemonsPage() {
 
   const handleFilter = () => {
     setFilter({
-      name: 'bulb', // Exemplo de filtro por nome
-      height: { min: 5, max: 10 }, // Filtro por altura
-      types: ['grass', 'poison'], // Filtro por tipos
+      name: 'bulb',
+      height: { min: 5, max: 10 },
+      types: ['grass', 'poison'],
     })
   }
 
@@ -26,7 +29,7 @@ function CaughtPokemonsPage() {
     setSort(sortOption)
   }
 
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc') // Controla a direção atual
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
 
   const handleSortToggle = () => {
     const newDirection = sortDirection === 'asc' ? 'desc' : 'asc'
@@ -40,6 +43,7 @@ function CaughtPokemonsPage() {
       <p>
         <Link to="/">Back to Pokémon List</Link>
       </p>
+      <p>{caughtPokemonProgress}</p>
       <div>
         <button onClick={handleSortToggle}>
           Sort by Name ({sortDirection === 'asc' ? 'Desc' : 'Asc'})

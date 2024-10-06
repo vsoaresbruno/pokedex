@@ -15,8 +15,7 @@ export const initDB = async () => {
   })
 }
 
-// Adiciona ou atualiza um Pokémon no IndexedDB
-export const addPokemon = async (pokemon: any) => {
+export const addPokemon = async (pokemon: string) => {
   const db = await initDB()
   const tx = db.transaction(STORE_NAME, 'readwrite')
   const store = tx.objectStore(STORE_NAME)
@@ -24,7 +23,6 @@ export const addPokemon = async (pokemon: any) => {
   await tx.done
 }
 
-// Pega todos os Pokémon armazenados no IndexedDB
 export const getAllPokemons = async () => {
   const db = await initDB()
   const tx = db.transaction(STORE_NAME, 'readonly')
@@ -34,7 +32,6 @@ export const getAllPokemons = async () => {
   return allPokemons
 }
 
-// Remove um Pokémon pelo nome
 export const removePokemon = async (pokemonName: string) => {
   const db = await initDB()
   const tx = db.transaction(STORE_NAME, 'readwrite')

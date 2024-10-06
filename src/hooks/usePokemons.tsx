@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react'
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemon, IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { pokeApiClient } from '../services/PokeApiClient'
-import { addPokemon } from '../services/db'
-
-interface IPokemon {
-  name: string
-  url: string
-}
+import { addPokemon, getAllPokemons } from '../services/db'
 
 export const usePokemons = () => {
   const [pokemons, setPokemons] = useState<IPokemon[]>([])
@@ -14,9 +9,7 @@ export const usePokemons = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [offset, setOffset] = useState<number>(0)
   const [error, setError] = useState<string | null>(null)
-  const [caughtPokemons, setCaughtPokemons] = useState<IPokemonDetail[]>(
-    JSON.parse(localStorage.getItem('caughtPokemons') || '[]')
-  )
+  const [caughtPokemons, setCaughtPokemons] = useState<IPokemonDetail[]>([])
 
   const { fetchAllPokemons, fetchPokemonDetails } = pokeApiClient
   const handleScroll = () => {
@@ -31,13 +24,18 @@ export const usePokemons = () => {
   const handleCatch = async (pokemonName: string) => {
     try {
       const pokemonDetails = await fetchPokemonDetails(pokemonName)
-
       if (pokemonDetails) {
-        await addPokemon(pokemonDetails)
+        const capturedAt = new Date().toISOString()
+
+        const pokemon = {
+          ...pokemonDetails,
+          capturedAt,
+        }
+        await addPokemon(pokemon)
 
         setCaughtPokemons((prevCaughtPokemons) => [
           ...prevCaughtPokemons,
-          pokemonDetails,
+          pokemon,
         ])
 
         alert(`${pokemonName} has been caught!`)
@@ -58,9 +56,10 @@ export const usePokemons = () => {
       setIsLoading(true)
       try {
         const fetchedPokemons = await fetchAllPokemons(offset)
-        setPokemons([...pokemons, ...fetchedPokemons])
+        setPokemons([...pokemons, ...fetchedPokemons.results])
         // Fetch details for the newly loaded Pokémon in parallel
-        const fetchDetailsPromises = fetchedPokemons.map((pokemon) =>
+        console.log('fetchedPokemons.results', fetchedPokemons.results)
+        const fetchDetailsPromises = fetchedPokemons.results.map((pokemon) =>
           fetchPokemonDetails(pokemon.name)
         )
         const fetchedDetails = await Promise.all(fetchDetailsPromises)
@@ -78,6 +77,19 @@ export const usePokemons = () => {
 
     fetchInitialData()
   }, [offset])
+
+  useEffect(() => {
+    const getCaughtPokemons = async () => {
+      setIsLoading(true)
+      const storedCaughtPokemons = await getAllPokemons()
+      if (storedCaughtPokemons.length > 0) {
+        setCaughtPokemons(storedCaughtPokemons)
+      }
+      setIsLoading(false)
+    }
+
+    getCaughtPokemons()
+  }, [])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)

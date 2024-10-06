@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom'
-import PokemonDetail from './PokemonDetail'
 import { usePokemons } from '../hooks/usePokemons'
-import { usePokemonDetails } from '@/hooks/usePokemonDetails'
 import { PokemonList } from './PokemonList'
 
 const Pokemons = () => {
