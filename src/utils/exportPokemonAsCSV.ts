@@ -11,7 +11,7 @@ export const exportPokemonAsCSV = async () => {
   await tx.done
 
   if (allPokemons.length === 0) {
-    alert('Nenhum Pokémon capturado encontrado.')
+    alert('There are no caught Pokémon to export.')
     return
   }
 

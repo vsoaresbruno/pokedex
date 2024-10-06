@@ -3,7 +3,7 @@ import { exportPokemonAsCSV } from '../utils/exportPokemonAsCSV'
 import '../css/Header.css'
 
 export const Header = () => {
-  const location = useLocation() // Hook para acessar a URL atual
+  const location = useLocation()
   const isActive = (path: string) => location.pathname === path
   console.log(location.pathname)
   return (
