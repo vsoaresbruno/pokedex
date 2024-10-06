@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  justify-content: space-between;
   top: 10em;
   height: fit-content;
   min-width: 100%;
