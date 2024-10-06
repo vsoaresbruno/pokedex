@@ -52,6 +52,22 @@ export const removePokemon = async (pokemonName: string) => {
   await tx.done
 }
 
+export const updatePokemonNote = async (pokemonName: string, note: string) => {
+  const db = await initDB()
+  const tx = db.transaction(CAUGHT_POKEMON, 'readwrite')
+  const store = tx.objectStore(CAUGHT_POKEMON)
+
+  // Obtendo o Pokémon atual
+  const pokemon = await store.get(pokemonName)
+
+  if (pokemon) {
+    pokemon.note = note
+    await store.put(pokemon)
+  }
+
+  await tx.done
+}
+
 export const saveOffset = async (offset: number) => {
   try {
     const db = await initDB()

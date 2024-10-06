@@ -1,6 +1,6 @@
 import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { useState, useEffect, useContext } from 'react'
-import { getAllPokemons } from '@/services/db'
+import { getAllPokemons, updatePokemonNote } from '@/services/db'
 import { PokemonContext } from '@/context/PokemonContext'
 
 type SortOption = 'name' | 'height' | 'timestamp'
@@ -114,6 +114,18 @@ export const useCaughtPokemons = () => {
     setFilterOptions(options)
   }
 
+  const updateNote = async (pokemonName: string, newNote: string) => {
+    const updatedPokemons = caughtPokemons.map((pokemon) => {
+      if (pokemon.name === pokemonName) {
+        return { ...pokemon, note: newNote }
+      }
+      return pokemon
+    })
+
+    setCaughtPokemons(updatedPokemons)
+    await updatePokemonNote(pokemonName, newNote)
+  }
+
   return {
     caughtPokemons,
     filteredPokemons,
@@ -123,5 +135,6 @@ export const useCaughtPokemons = () => {
     removeSelectedPokemons,
     setSort,
     setFilter,
+    updateNote,
   }
 }

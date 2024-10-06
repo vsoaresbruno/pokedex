@@ -39,4 +39,5 @@ export interface IPokemonDetail {
     }
   }[]
   capturedAt?: string
+  note?: string
 }

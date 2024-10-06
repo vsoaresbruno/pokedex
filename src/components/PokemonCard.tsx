@@ -1,11 +1,17 @@
 import { useSharePokemon } from '@/hooks/useSharePokemon'
 import '../css/PokemonCard.css'
 interface IPokemonCard {
-  pokemon: { id: number; name: string; sprites: { front_default: string } }
+  pokemon: {
+    id: number
+    name: string
+    sprites: { front_default: string }
+    note?: string
+  }
   handleSelectPokemon: (name: string) => void
   handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
   togglePokemonToRemove?: (name: string) => void
+  updateNote?: (name: string, note: string) => void
   pokemonsToRemove?: string[]
 }
 
@@ -15,6 +21,7 @@ export const PokemonCard = ({
   handleIsCaught,
   handleCatch,
   togglePokemonToRemove,
+  updateNote,
   pokemonsToRemove,
 }: IPokemonCard) => {
   const { handleShare } = useSharePokemon(pokemon)
@@ -37,13 +44,23 @@ export const PokemonCard = ({
           </p>
           <p className="pokemon-card__title">{name}</p>
         </div>
-        {handleCatch && handleIsCaught && (
-          <button
-            onClick={() => (handleIsCaught(name) ? null : handleCatch(name))}
-            disabled={handleIsCaught(name)}
-          >
-            Catch
-          </button>
+        {handleCatch && handleIsCaught ? (
+          <>
+            <button
+              onClick={() => (handleIsCaught(name) ? null : handleCatch(name))}
+              disabled={handleIsCaught(name)}
+            >
+              Catch
+            </button>
+          </>
+        ) : (
+          <textarea
+            value={pokemon.note}
+            onChange={(e) =>
+              updateNote && updateNote(pokemon.name, e.target.value)
+            }
+            placeholder="Add a note"
+          />
         )}
         <button onClick={handleShare}>Share on WhatsApp</button>
 

@@ -14,15 +14,8 @@ function CaughtPokemonsPage() {
     filteredPokemons,
     setFilter,
     setSort,
+    updateNote,
   } = useCaughtPokemons()
-
-  const handleFilter = () => {
-    setFilter({
-      name: 'bulb',
-      height: { min: 5, max: 10 },
-      types: ['grass', 'poison'],
-    })
-  }
 
   const handleSort = (sortOption: 'name' | 'height' | 'timestamp') => {
     setSort(sortOption)
@@ -56,6 +49,7 @@ function CaughtPokemonsPage() {
         togglePokemonToRemove={togglePokemonToRemove}
         pokemonsToRemove={pokemonsToRemove}
         removeSelectedPokemons={removeSelectedPokemons}
+        updateNote={updateNote}
       />
     </>
   )

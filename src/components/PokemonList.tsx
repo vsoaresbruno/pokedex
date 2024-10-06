@@ -10,6 +10,7 @@ interface IPokemonListProps {
   togglePokemonToRemove?: (name: string) => void
   pokemonsToRemove?: string[]
   removeSelectedPokemons?: () => void
+  updateNote?: (name: string, note: string) => void
 }
 
 export const PokemonList = ({
@@ -19,6 +20,7 @@ export const PokemonList = ({
   togglePokemonToRemove,
   pokemonsToRemove,
   removeSelectedPokemons,
+  updateNote,
 }: IPokemonListProps) => {
   const { handleSelectPokemon, handleCloseDetail, selectedPokemon } =
     usePokemonDetails(pokemonList)
@@ -41,6 +43,7 @@ export const PokemonList = ({
               handleCatch={handleCatch}
               togglePokemonToRemove={togglePokemonToRemove}
               pokemonsToRemove={pokemonsToRemove}
+              updateNote={updateNote}
             />
           ))}
         </div>
