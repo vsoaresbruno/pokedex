@@ -1,6 +1,7 @@
 import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
-import { useState, useEffect } from 'react'
-import { getAllPokemons, removePokemon } from '../services/db'
+import { useState, useEffect, useContext } from 'react'
+import { getAllPokemons } from '@/services/db'
+import { PokemonContext } from '@/context/PokemonContext'
 
 type SortOption = 'name' | 'height' | 'timestamp'
 type SortDirection = 'asc' | 'desc'
@@ -11,6 +12,8 @@ type FilterOptions = {
 }
 
 export const useCaughtPokemons = () => {
+  const { releasePokemon } = useContext(PokemonContext)
+
   const [caughtPokemons, setCaughtPokemons] = useState<IPokemonDetail[]>([])
   const [pokemonsToRemove, setPokemonsToRemove] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -96,7 +99,7 @@ export const useCaughtPokemons = () => {
     setCaughtPokemons(remainingPokemons)
 
     for (const pokemonName of pokemonsToRemove) {
-      await removePokemon(pokemonName)
+      releasePokemon(pokemonName)
     }
 
     setPokemonsToRemove([])
