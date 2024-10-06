@@ -2,22 +2,21 @@ import React, { createContext, useState, useEffect } from 'react'
 import { getAllPokemons, addPokemon, removePokemon } from '../services/db'
 
 import { pokeApiClient } from '../services/PokeApiClient'
+import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 
 export interface IPokemonContext {
   totalPokemonCount: number
   caughtPokemonCount: number
-  addCaughtPokemon: (pokemon: string) => void
+  addCaughtPokemon: (pokemon: IPokemonDetail) => void
   releasePokemon: (pokemonName: string) => void
-  getCaughtPokemonProgress: () => void
   caughtPokemonProgress: string
 }
 // Create Context
 export const PokemonContext = createContext<IPokemonContext>({
   totalPokemonCount: 0,
   caughtPokemonCount: 0,
-  addCaughtPokemon: (pokemon: string): void => {},
+  addCaughtPokemon: (pokemon: IPokemonDetail): void => {},
   releasePokemon: (pokemon: string): void => {},
-  getCaughtPokemonProgress: (): void => {},
   caughtPokemonProgress: '',
 })
 
@@ -37,7 +36,7 @@ export const PokemonProvider = ({
     setCaughtPokemonCount(caughtPokemons.length)
   }
 
-  const addCaughtPokemon = async (pokemon: string) => {
+  const addCaughtPokemon = async (pokemon: IPokemonDetail) => {
     await addPokemon(pokemon)
     await loadCaughtPokemons()
   }
@@ -63,7 +62,7 @@ export const PokemonProvider = ({
     fetchPokemonCount()
     loadCaughtPokemons()
     getCaughtPokemonProgress()
-  }, [])
+  }, [addCaughtPokemon])
   return (
     <PokemonContext.Provider
       value={{
@@ -71,7 +70,6 @@ export const PokemonProvider = ({
         caughtPokemonCount,
         addCaughtPokemon,
         releasePokemon,
-        getCaughtPokemonProgress,
         caughtPokemonProgress,
       }}
     >

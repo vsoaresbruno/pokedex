@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { IPokemon, IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { pokeApiClient } from '../services/PokeApiClient'
-import { addPokemon, getAllPokemons } from '../services/db'
+import { getAllPokemons } from '../services/db'
+import { PokemonContext } from '../context/PokemonContext'
 
 export const usePokemons = () => {
+  const { addCaughtPokemon } = useContext(PokemonContext)
+  const { fetchAllPokemons, fetchPokemonDetails } = pokeApiClient
+
   const [pokemons, setPokemons] = useState<IPokemon[]>([])
   const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetail[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -11,7 +15,6 @@ export const usePokemons = () => {
   const [error, setError] = useState<string | null>(null)
   const [caughtPokemons, setCaughtPokemons] = useState<IPokemonDetail[]>([])
 
-  const { fetchAllPokemons, fetchPokemonDetails } = pokeApiClient
   const handleScroll = () => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 2 &&
@@ -31,7 +34,8 @@ export const usePokemons = () => {
           ...pokemonDetails,
           capturedAt,
         }
-        await addPokemon(pokemon)
+
+        addCaughtPokemon(pokemon)
 
         setCaughtPokemons((prevCaughtPokemons) => [
           ...prevCaughtPokemons,
@@ -51,6 +55,10 @@ export const usePokemons = () => {
   const handleIsCaught = (pokemonName: string) =>
     caughtPokemons.some((pokemon) => pokemon.name === pokemonName)
 
+  const loadMorePokemons = async () => {
+    setOffset((prevOffset) => prevOffset + 100)
+  }
+
   useEffect(() => {
     const fetchInitialData = async () => {
       setIsLoading(true)
@@ -58,7 +66,6 @@ export const usePokemons = () => {
         const fetchedPokemons = await fetchAllPokemons(offset)
         setPokemons([...pokemons, ...fetchedPokemons.results])
         // Fetch details for the newly loaded Pokémon in parallel
-        console.log('fetchedPokemons.results', fetchedPokemons.results)
         const fetchDetailsPromises = fetchedPokemons.results.map((pokemon) =>
           fetchPokemonDetails(pokemon.name)
         )
@@ -97,10 +104,6 @@ export const usePokemons = () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
-  const loadMorePokemons = async () => {
-    setOffset((prevOffset) => prevOffset + 100)
-  }
 
   return {
     loadMorePokemons,
