@@ -32,7 +32,10 @@ describe('PokeApiClient', () => {
     it('should fetch a list of pokemons successfully', async () => {
       const mockResponse = {
         results: [
-          { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
+          {
+            name: 'bulbasaur',
+            url: 'https://pokeapi.co/api/v2/pokemon/1/',
+          },
         ],
       }
       mockFetch.mockResolvedValueOnce({
@@ -40,7 +43,7 @@ describe('PokeApiClient', () => {
       })
 
       const pokemons = await pokeApiClient.fetchAllPokemons(0)
-      expect(pokemons).toEqual(mockResponse.results)
+      expect(pokemons).toEqual(mockResponse)
       expect(fetch).toHaveBeenCalledWith(
         'https://pokeapi.co/api/v2/pokemon?limit=100&offset=0'
       )

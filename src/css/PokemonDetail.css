@@ -16,6 +16,12 @@
   color: #0f222f;
 }
 
+.pokemon-detail__id {
+  margin-top: 16px;
+  font-size: 1.2em;
+  color: #8f9396;
+}
+
 .pokemon-detail__subtitle {
   font-size: 0.8em;
   font-weight: bold;

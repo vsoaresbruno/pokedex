@@ -5,7 +5,6 @@ import '../css/Header.css'
 export const Header = () => {
   const location = useLocation()
   const isActive = (path: string) => location.pathname === path
-  console.log(location.pathname)
   return (
     <nav className="header">
       <ul className="header__list">

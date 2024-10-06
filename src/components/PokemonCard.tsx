@@ -1,3 +1,4 @@
+import { useSharePokemon } from '@/hooks/useSharePokemon'
 import '../css/PokemonCard.css'
 interface IPokemonCard {
   pokemon: { id: number; name: string; sprites: { front_default: string } }
@@ -16,6 +17,7 @@ export const PokemonCard = ({
   togglePokemonToRemove,
   pokemonsToRemove,
 }: IPokemonCard) => {
+  const { handleShare } = useSharePokemon(pokemon)
   const { id, name, sprites } = pokemon
 
   return (
@@ -43,6 +45,8 @@ export const PokemonCard = ({
             Catch
           </button>
         )}
+        <button onClick={handleShare}>Share on WhatsApp</button>
+
         {togglePokemonToRemove && pokemonsToRemove && (
           <input
             type="checkbox"

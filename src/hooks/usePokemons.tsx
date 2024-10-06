@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { IPokemon, IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { pokeApiClient } from '../services/PokeApiClient'
-import { getAllPokemons } from '../services/db'
+import { getAllPokemons, saveOffset } from '../services/db'
 import { PokemonContext } from '../context/PokemonContext'
 
 export const usePokemons = () => {
@@ -36,7 +36,6 @@ export const usePokemons = () => {
         }
 
         addCaughtPokemon(pokemon)
-
         setCaughtPokemons((prevCaughtPokemons) => [
           ...prevCaughtPokemons,
           pokemon,
@@ -76,6 +75,8 @@ export const usePokemons = () => {
             (detail): detail is IPokemonDetail => detail !== null
           ),
         ])
+        saveOffset(offset)
+        // saveOffset(offset)
         setIsLoading(false)
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : String(error))

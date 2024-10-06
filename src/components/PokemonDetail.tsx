@@ -27,8 +27,8 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon, onClose }) => {
         src={pokemon.sprites.front_default}
         alt={pokemon.name}
       />
-      <h2>#{pokemon.id}</h2>
-      <h2 className="pokemon-detail__title ">{pokemon.name}</h2>
+      <h1 className="pokemon-detail__id">#{pokemon.id}</h1>
+      <h2 className="pokemon-detail__title">{pokemon.name}</h2>
       <div className="pokemon-detail__section">
         {pokemon.capturedAt && (
           <div>

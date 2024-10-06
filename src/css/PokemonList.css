@@ -4,4 +4,5 @@
   gap: 60px 30px;
   margin-top: 5em;
   min-width: 65%;
+  height: fit-content;
 }
