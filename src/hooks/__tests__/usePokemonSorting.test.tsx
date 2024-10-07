@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect } from 'vitest'
-import { usePokemonSorting } from '../usePokemonSorting' // Replace with your actual path
-import { IPokemons, IPokemonDetail } from '@/services/InterfacePokeApiClient' // Adjust paths if necessary
+import { usePokemonSorting } from '../usePokemonSorting'
+import { IPokemons, IPokemonDetail } from '@/services/InterfacePokeApiClient'
 
 describe('usePokemonSorting', () => {
   let mockCaughtPokemons: IPokemons[]
@@ -144,7 +144,6 @@ describe('usePokemonSorting', () => {
     ])
   })
 
-  // Test case for sorting by timestamp
   it('sorts Pokemons by capturedAt (ascending)', () => {
     const sortedPokemons = usePokemonSorting(
       mockCaughtPokemons,
@@ -197,7 +196,6 @@ describe('usePokemonSorting', () => {
     ])
   })
 
-  // Test case for sorting by type (primary type)
   it('sorts Pokemons by type (ascending)', () => {
     const sortedPokemons = usePokemonSorting(mockCaughtPokemons, 'type', 'asc')
     expect(sortedPokemons).toEqual([

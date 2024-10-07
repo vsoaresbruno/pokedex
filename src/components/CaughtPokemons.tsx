@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useCaughtPokemons } from '@/hooks/useCaughtPokemons'
 import { PokemonList } from './PokemonList'
-import { PokemonContext } from '@/context/PokemonContext'
+import { PokemonContext } from '../context/PokemonContext'
 import { FilterByTypes } from './FilterByTypes'
 import { FilterByName } from './FilterByName'
 import { SortPokemons } from './SortPokemons'

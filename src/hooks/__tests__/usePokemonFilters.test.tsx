@@ -64,6 +64,4 @@ describe('usePokemonFilters', () => {
     )
     expect(filteredPokemons).toEqual([mockCaughtPokemons[1]])
   })
-
-  // Add more test cases for other filter combinations and edge cases
 })
