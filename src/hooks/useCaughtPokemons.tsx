@@ -1,7 +1,11 @@
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
-import { useState, useEffect, useContext } from 'react'
-import { getAllPokemons, updatePokemonNote } from '@/services/db'
+import {
+  ICapturedPokemonDetail,
+  IPokemonDetail,
+} from '@/services/InterfacePokeApiClient'
 import { PokemonContext } from '@/context/PokemonContext'
+import { getAllPokemons, updatePokemonNote } from '@/services/db'
+import { parseTimestamp } from '../utils/parseTimestamp'
+import { useState, useEffect, useContext } from 'react'
 
 type SortOption = 'name' | 'height' | 'timestamp'
 type SortDirection = 'asc' | 'desc'
@@ -9,15 +13,20 @@ type FilterOptions = {
   name?: string
   height?: { min?: number; max?: number }
   types?: string[]
+  timestamp?: { after?: number; before?: number } // Add this line
 }
 
 export const useCaughtPokemons = () => {
   const { releasePokemon } = useContext(PokemonContext)
 
-  const [caughtPokemons, setCaughtPokemons] = useState<IPokemonDetail[]>([])
+  const [caughtPokemons, setCaughtPokemons] = useState<
+    ICapturedPokemonDetail[]
+  >([])
   const [pokemonsToRemove, setPokemonsToRemove] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [filteredPokemons, setFilteredPokemons] = useState<IPokemonDetail[]>([])
+  const [filteredPokemons, setFilteredPokemons] = useState<
+    ICapturedPokemonDetail[]
+  >([])
   const [sortOption, setSortOption] = useState<SortOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({})
@@ -70,7 +79,9 @@ export const useCaughtPokemons = () => {
     setFilteredPokemons(pokemons)
   }
 
-  const sortPokemons = (pokemons: IPokemonDetail[]): IPokemonDetail[] => {
+  const sortPokemons = (
+    pokemons: ICapturedPokemonDetail[]
+  ): ICapturedPokemonDetail[] => {
     return pokemons.sort((a, b) => {
       if (sortOption === 'name') {
         const comparison = a.name.localeCompare(b.name)
@@ -79,6 +90,9 @@ export const useCaughtPokemons = () => {
         return sortDirection === 'asc'
           ? a.height - b.height
           : b.height - a.height
+      } else if (sortOption === 'timestamp') {
+        const comparison = a.capturedAt.localeCompare(b.capturedAt)
+        return sortDirection === 'asc' ? comparison : -comparison
       }
       return 0
     })

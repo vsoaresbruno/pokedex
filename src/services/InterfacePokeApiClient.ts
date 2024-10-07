@@ -38,6 +38,9 @@ export interface IPokemonDetail {
       name: string
     }
   }[]
-  capturedAt?: string
-  note?: string
+}
+
+export interface ICapturedPokemonDetail extends IPokemonDetail {
+  capturedAt: string
+  note: string
 }
