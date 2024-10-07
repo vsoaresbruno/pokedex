@@ -19,7 +19,7 @@ function CaughtPokemonsPage() {
     updateNote,
   } = useCaughtPokemons()
 
-  const handleSort = (sortOption: 'name' | 'height' | 'timestamp') => {
+  const handleSort = (sortOption: 'name' | 'height' | 'timestamp' | 'type') => {
     const newDirection = sortDirection === 'asc' ? 'desc' : 'asc'
     setSortDirection(newDirection)
     setSort(sortOption, newDirection)
@@ -37,6 +37,7 @@ function CaughtPokemonsPage() {
         <button onClick={() => handleSort('timestamp')}>
           Sort by Timestamp
         </button>
+        <button onClick={() => handleSort('type')}>Sort by Type</button>
       </div>
       <FilterByTypes setFilter={setFilter} />
       <FilterByName setFilter={setFilter} />

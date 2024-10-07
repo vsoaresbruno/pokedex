@@ -7,7 +7,7 @@ import { getAllPokemons, updatePokemonNote } from '@/services/db'
 import { parseTimestamp } from '../utils/parseTimestamp'
 import { useState, useEffect, useContext } from 'react'
 
-type SortOption = 'name' | 'height' | 'timestamp'
+type SortOption = 'name' | 'height' | 'timestamp' | 'type'
 type SortDirection = 'asc' | 'desc'
 type FilterOptions = {
   name?: string
@@ -92,6 +92,11 @@ export const useCaughtPokemons = () => {
           : b.height - a.height
       } else if (sortOption === 'timestamp') {
         const comparison = a.capturedAt.localeCompare(b.capturedAt)
+        return sortDirection === 'asc' ? comparison : -comparison
+      } else if (sortOption === 'type') {
+        const typeA = a.types[0]?.type.name || '' // Get the first type or empty string
+        const typeB = b.types[0]?.type.name || ''
+        const comparison = typeA.localeCompare(typeB)
         return sortDirection === 'asc' ? comparison : -comparison
       }
       return 0
