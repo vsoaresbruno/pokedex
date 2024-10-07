@@ -1,11 +1,13 @@
 import { lazy, Suspense } from 'react'
-import PokemonDetail from './PokemonDetail'
+import {
+  ICaughtPokemonDetail,
+  IPokemonDetail,
+} from '@/services/InterfacePokeApiClient'
 import { usePokemonDetails } from '../hooks/usePokemonDetails'
 import { PokemonCard } from './PokemonCard'
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import '../css/PokemonList.css'
 interface IPokemonListProps {
-  pokemonList: IPokemonDetail[]
+  pokemonList: ICaughtPokemonDetail[] | IPokemonDetail[]
   handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
   togglePokemonToRemove?: (name: string) => void
@@ -35,7 +37,7 @@ export const PokemonList = ({
           Remove Selected Pokémons
         </button>
       )}
-      <div className="wrapper" style={{ display: 'flex' }}>
+      <div className="wrapper">
         <div className="pokemon-list">
           {pokemonList.map((pokemon, index) => (
             <PokemonCard

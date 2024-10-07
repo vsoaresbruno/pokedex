@@ -1,10 +1,10 @@
 import React from 'react'
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { TYPE_COLORS } from '@/utils/constants'
+import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
 import '../css/PokemonDetail.css'
 
 interface PokemonDetailProps {
-  pokemon: IPokemonDetail | null
+  pokemon: IPokemonDetail
   onClose: () => void
 }
 
