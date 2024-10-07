@@ -10,7 +10,6 @@ export const initDB = async () => {
   try {
     const db = await openDB(DB_NAME, DB_VERSION, {
       upgrade(db) {
-        // Criação da store para Pokémon capturados
         if (!db.objectStoreNames.contains(CAUGHT_POKEMON)) {
           db.createObjectStore(CAUGHT_POKEMON, { keyPath: 'name' })
         }
@@ -23,7 +22,7 @@ export const initDB = async () => {
     return db
   } catch (error) {
     console.error('Erro ao inicializar o banco de dados:', error)
-    throw error // Re-raise o erro para depuração
+    throw error
   }
 }
 
@@ -57,7 +56,6 @@ export const updatePokemonNote = async (pokemonName: string, note: string) => {
   const tx = db.transaction(CAUGHT_POKEMON, 'readwrite')
   const store = tx.objectStore(CAUGHT_POKEMON)
 
-  // Obtendo o Pokémon atual
   const pokemon = await store.get(pokemonName)
 
   if (pokemon) {
@@ -78,8 +76,6 @@ export const saveOffset = async (offset: number) => {
     console.log('Offset salvo:', offset)
   } catch (error) {
     console.error('Erro ao salvar o offset:', error)
-    // Trate o erro de acordo com a sua aplicação
-    // Por exemplo, exibir uma mensagem de erro para o usuário
   }
 }
 

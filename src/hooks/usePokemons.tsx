@@ -64,7 +64,6 @@ export const usePokemons = () => {
       try {
         const fetchedPokemons = await fetchAllPokemons(offset)
         setPokemons([...pokemons, ...fetchedPokemons.results])
-        // Fetch details for the newly loaded Pokémon in parallel
         const fetchDetailsPromises = fetchedPokemons.results.map((pokemon) =>
           fetchPokemonDetails(pokemon.name)
         )
@@ -76,7 +75,6 @@ export const usePokemons = () => {
           ),
         ])
         saveOffset(offset)
-        // saveOffset(offset)
         setIsLoading(false)
       } catch (error: unknown) {
         setError(error instanceof Error ? error.message : String(error))

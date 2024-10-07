@@ -27,6 +27,7 @@ function CaughtPokemonsPage() {
 
   return (
     <>
+      <FilterByName setFilter={setFilter} />
       <h1>My Pokedex</h1>
       <p>{caughtPokemonProgress}</p>
       <div>
@@ -40,7 +41,6 @@ function CaughtPokemonsPage() {
         <button onClick={() => handleSort('type')}>Sort by Type</button>
       </div>
       <FilterByTypes setFilter={setFilter} />
-      <FilterByName setFilter={setFilter} />
 
       <PokemonList
         pokemonList={filteredPokemons}

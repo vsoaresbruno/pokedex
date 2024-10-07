@@ -14,7 +14,7 @@ vi.mock('../../services/PokeApiClient', async (importOriginal) => {
 
 describe('useFilterTypes hook', () => {
   beforeEach(() => {
-    vi.clearAllMocks() // Limpa os mocks entre os testes
+    vi.clearAllMocks()
   })
   it('should initially render with empty selectedTypes and no error', () => {
     const { result } = renderHook(() => useFilterTypes({ setFilter: vi.fn() }))
@@ -30,7 +30,7 @@ describe('useFilterTypes hook', () => {
     result.current.handleTypeChange('fire')
     expect(result.current.selectedTypes).toEqual(['fire'])
 
-    result.current.handleTypeChange('fire') // Deselect
+    result.current.handleTypeChange('fire')
     expect(result.current.selectedTypes).toEqual([])
   })
 

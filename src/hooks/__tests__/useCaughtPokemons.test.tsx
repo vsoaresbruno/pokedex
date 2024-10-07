@@ -109,7 +109,7 @@ describe('useCaughtPokemons hook', () => {
       stats: [],
       types: [],
       id: 0,
-    }) // Simulate details
+    })
 
     const { result } = renderHook(() => useCaughtPokemons())
 

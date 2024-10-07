@@ -1,10 +1,6 @@
-import {
-  ICapturedPokemonDetail,
-  IPokemonDetail,
-} from '@/services/InterfacePokeApiClient'
+import { ICapturedPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { PokemonContext } from '@/context/PokemonContext'
 import { getAllPokemons, updatePokemonNote } from '@/services/db'
-import { parseTimestamp } from '../utils/parseTimestamp'
 import { useState, useEffect, useContext } from 'react'
 
 type SortOption = 'name' | 'height' | 'timestamp' | 'type'
@@ -13,7 +9,7 @@ type FilterOptions = {
   name?: string
   height?: { min?: number; max?: number }
   types?: string[]
-  timestamp?: { after?: number; before?: number } // Add this line
+  timestamp?: { after?: number; before?: number }
 }
 
 export const useCaughtPokemons = () => {
@@ -94,7 +90,7 @@ export const useCaughtPokemons = () => {
         const comparison = a.capturedAt.localeCompare(b.capturedAt)
         return sortDirection === 'asc' ? comparison : -comparison
       } else if (sortOption === 'type') {
-        const typeA = a.types[0]?.type.name || '' // Get the first type or empty string
+        const typeA = a.types[0]?.type.name || ''
         const typeB = b.types[0]?.type.name || ''
         const comparison = typeA.localeCompare(typeB)
         return sortDirection === 'asc' ? comparison : -comparison
