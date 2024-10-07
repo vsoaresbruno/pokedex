@@ -37,15 +37,18 @@
 
 .pokemon-detail__close {
   position: absolute;
-  top: -7em;
+  top: -4em;
   right: 0;
   border: none;
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
+  height: 30px;
+  width: 30px;
   padding: 1px 3px;
-  font-size: 0.8em;
+  background: #eaecf0;
+  cursor: pointer;
+  color: #242424;
+  font-size: 1em;
+  font-weight: bold;
 }
 .pokemon-detail__tags {
   border-radius: 15px;
@@ -95,4 +98,25 @@
   margin: 5px;
   width: fit-content;
   padding: 1px 12px;
+}
+
+@media (max-width: 768px) {
+  .pokemon-detail {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    margin-top: 0;
+  }
+  .pokemon-detail__image {
+    position: initial;
+    margin: 0 auto;
+  }
+  .pokemon-detail__close {
+    top: 40px;
+    right: 40px;
+    font-size: 1.5em;
+    width: 50px;
+    height: 50px;
+  }
 }

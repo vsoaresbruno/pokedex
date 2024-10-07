@@ -1,38 +1,37 @@
-import { useState, useEffect, useContext } from 'react'
-import { IPokemon, IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { useState, useEffect, useContext, useRef } from 'react'
+import { useInfiniteQuery } from 'react-query'
+
+import { IPokemons } from '@/services/InterfacePokeApiClient'
 import { pokeApiClient } from '../services/PokeApiClient'
-import { getAllPokemons, saveOffset } from '../services/db'
+import { getAllPokemons } from '../services/db'
 import { PokemonContext } from '../context/PokemonContext'
 
 export const usePokemons = () => {
   const { addCaughtPokemon } = useContext(PokemonContext)
-  const { fetchAllPokemons, fetchPokemonDetails } = pokeApiClient
+  const { fetchPokemon } = pokeApiClient
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery('pokemons', fetchPokemon, {
+      getNextPageParam: (lastPage) => lastPage.next || undefined,
+    })
 
-  const [pokemons, setPokemons] = useState<IPokemon[]>([])
-  const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetail[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [offset, setOffset] = useState<number>(0)
-  const [error, setError] = useState<string | null>(null)
-  const [caughtPokemons, setCaughtPokemons] = useState<IPokemonDetail[]>([])
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 2 &&
-      !isLoading
-    ) {
-      loadMorePokemons()
-    }
-  }
+  const [caughtPokemons, setCaughtPokemons] = useState<IPokemons[]>([])
+  const pokemonList = data?.pages.map((page) => page.results).flat() || []
 
   const handleCatch = async (pokemonName: string) => {
     try {
-      const pokemonDetails = await fetchPokemonDetails(pokemonName)
-      if (pokemonDetails) {
+      const caughtPokemon = pokemonList.find(
+        (pokemon) => pokemon.name === pokemonName
+      )
+      if (caughtPokemon) {
         const capturedAt = new Date().toISOString()
 
         const pokemon = {
-          ...pokemonDetails,
-          capturedAt,
+          name: caughtPokemon.name,
+          pokemonDetails: {
+            ...caughtPokemon.pokemonDetails,
+            capturedAt,
+          },
         }
 
         addCaughtPokemon(pokemon)
@@ -54,36 +53,6 @@ export const usePokemons = () => {
   const handleIsCaught = (pokemonName: string) =>
     caughtPokemons.some((pokemon) => pokemon.name === pokemonName)
 
-  const loadMorePokemons = async () => {
-    setOffset((prevOffset) => prevOffset + 100)
-  }
-
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      setIsLoading(true)
-      try {
-        const fetchedPokemons = await fetchAllPokemons(offset)
-        setPokemons([...pokemons, ...fetchedPokemons.results])
-        const fetchDetailsPromises = fetchedPokemons.results.map((pokemon) =>
-          fetchPokemonDetails(pokemon.name)
-        )
-        const fetchedDetails = await Promise.all(fetchDetailsPromises)
-        setPokemonDetails([
-          ...pokemonDetails,
-          ...fetchedDetails.filter(
-            (detail): detail is IPokemonDetail => detail !== null
-          ),
-        ])
-        saveOffset(offset)
-        setIsLoading(false)
-      } catch (error: unknown) {
-        setError(error instanceof Error ? error.message : String(error))
-      }
-    }
-
-    fetchInitialData()
-  }, [offset])
-
   useEffect(() => {
     const getCaughtPokemons = async () => {
       setIsLoading(true)
@@ -97,23 +66,36 @@ export const usePokemons = () => {
     getCaughtPokemons()
   }, [])
 
+  const loadMoreRef = useRef(null)
+
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
+    if (loadMoreRef.current && hasNextPage) {
+      const observer = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          if (entries[0].isIntersecting) {
+            fetchNextPage()
+          }
+        }
+      )
+      observer.observe(loadMoreRef.current)
+
+      return () => {
+        if (loadMoreRef.current) {
+          observer.unobserve(loadMoreRef.current)
+        }
+      }
     }
-  }, [])
+  }, [hasNextPage, fetchNextPage])
 
   return {
-    loadMorePokemons,
-    handleScroll,
     handleCatch,
     handleIsCaught,
     setCaughtPokemons,
-    pokemons,
     isLoading,
-    pokemonDetails,
     caughtPokemons,
-    error,
+    pokemonList,
+    status,
+    loadMoreRef,
+    isFetchingNextPage,
   }
 }

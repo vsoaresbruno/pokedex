@@ -1,49 +1,40 @@
+import { useContext } from 'react'
 import { useCaughtPokemons } from '@/hooks/useCaughtPokemons'
 import { PokemonList } from './PokemonList'
-import { useContext, useState } from 'react'
+import { PokemonContext } from '@/context/PokemonContext'
 import { FilterByTypes } from './FilterByTypes'
 import { FilterByName } from './FilterByName'
-import { PokemonContext } from '@/context/PokemonContext'
+import { SortPokemons } from './SortPokemons'
 
-function CaughtPokemonsPage() {
+export const CaughtPokemons = () => {
   const { caughtPokemonProgress } = useContext(PokemonContext)
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
 
   const {
     removeSelectedPokemons,
     togglePokemonToRemove,
     pokemonsToRemove,
-    filteredPokemons,
+    sortedPokemons,
     setFilter,
     setSort,
     updateNote,
+    sortDirection,
+    setSortDirection,
   } = useCaughtPokemons()
-
-  const handleSort = (sortOption: 'name' | 'height' | 'timestamp' | 'type') => {
-    const newDirection = sortDirection === 'asc' ? 'desc' : 'asc'
-    setSortDirection(newDirection)
-    setSort(sortOption, newDirection)
-  }
 
   return (
     <>
       <FilterByName setFilter={setFilter} />
       <h1>My Pokedex</h1>
       <p>{caughtPokemonProgress}</p>
-      <div>
-        <button onClick={() => handleSort('name')}>
-          Sort by Name ({sortDirection === 'asc' ? 'Desc' : 'Asc'})
-        </button>
-        <button onClick={() => handleSort('height')}>Sort by Height</button>
-        <button onClick={() => handleSort('timestamp')}>
-          Sort by Timestamp
-        </button>
-        <button onClick={() => handleSort('type')}>Sort by Type</button>
-      </div>
+      <SortPokemons
+        setSort={setSort}
+        setSortDirection={setSortDirection}
+        sortDirection={sortDirection}
+      />
       <FilterByTypes setFilter={setFilter} />
 
       <PokemonList
-        pokemonList={filteredPokemons}
+        pokemonList={sortedPokemons}
         togglePokemonToRemove={togglePokemonToRemove}
         pokemonsToRemove={pokemonsToRemove}
         removeSelectedPokemons={removeSelectedPokemons}
@@ -52,5 +43,3 @@ function CaughtPokemonsPage() {
     </>
   )
 }
-
-export default CaughtPokemonsPage

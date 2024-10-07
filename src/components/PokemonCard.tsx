@@ -2,30 +2,33 @@ import { useSharePokemon } from '@/hooks/useSharePokemon'
 import '../css/PokemonCard.css'
 interface IPokemonCard {
   pokemon: {
-    id: number
     name: string
-    sprites: { front_default: string }
-    note?: string
+    pokemonDetails: {
+      id: number
+      name: string
+      sprites: { front_default: string }
+      note?: string
+    }
   }
   handleSelectPokemon: (name: string) => void
-  handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
   togglePokemonToRemove?: (name: string) => void
   updateNote?: (name: string, note: string) => void
   pokemonsToRemove?: string[]
+  IsCaught?: boolean
 }
 
 export const PokemonCard = ({
   pokemon,
   handleSelectPokemon,
-  handleIsCaught,
   handleCatch,
   togglePokemonToRemove,
   updateNote,
   pokemonsToRemove,
+  IsCaught,
 }: IPokemonCard) => {
   const { handleShare } = useSharePokemon(pokemon)
-  const { id, name, sprites } = pokemon
+  const { sprites, name, id, note } = pokemon.pokemonDetails
 
   return (
     <>
@@ -44,21 +47,19 @@ export const PokemonCard = ({
           </p>
           <p className="pokemon-card__title">{name}</p>
         </div>
-        {handleCatch && handleIsCaught ? (
+        {handleCatch ? (
           <>
             <button
-              onClick={() => (handleIsCaught(name) ? null : handleCatch(name))}
-              disabled={handleIsCaught(name)}
+              onClick={() => (IsCaught ? null : handleCatch(name))}
+              disabled={IsCaught}
             >
               Catch
             </button>
           </>
         ) : (
           <textarea
-            value={pokemon.note}
-            onChange={(e) =>
-              updateNote && updateNote(pokemon.name, e.target.value)
-            }
+            value={note}
+            onChange={(e) => updateNote && updateNote(name, e.target.value)}
             placeholder="Add a note"
           />
         )}

@@ -4,10 +4,12 @@ import { useSharePokemon } from '../useSharePokemon'
 
 describe('useSharePokemon', () => {
   const mockPokemon = {
-    id: 8,
     name: 'Wartortle',
-    sprites: {
-      front_default: 'https://example.com/wartortle.png',
+    pokemonDetails: {
+      id: 8,
+      sprites: {
+        front_default: 'https://example.com/wartortle.png',
+      },
     },
   }
 

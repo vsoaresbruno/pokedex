@@ -1,13 +1,10 @@
 import { lazy, Suspense } from 'react'
-import {
-  ICaughtPokemonDetail,
-  IPokemonDetail,
-} from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/services/InterfacePokeApiClient'
 import { usePokemonDetails } from '../hooks/usePokemonDetails'
 import { PokemonCard } from './PokemonCard'
 import '../css/PokemonList.css'
 interface IPokemonListProps {
-  pokemonList: ICaughtPokemonDetail[] | IPokemonDetail[]
+  pokemonList: IPokemons[]
   handleIsCaught?: (name: string) => boolean
   handleCatch?: (name: string) => void
   togglePokemonToRemove?: (name: string) => void
@@ -29,7 +26,6 @@ export const PokemonList = ({
     usePokemonDetails(pokemonList)
 
   const AsyncPokemonDetail = lazy(() => import('./PokemonDetail'))
-
   return (
     <>
       {pokemonsToRemove && pokemonsToRemove.length > 0 && (
@@ -44,11 +40,11 @@ export const PokemonList = ({
               key={index}
               pokemon={pokemon}
               handleSelectPokemon={handleSelectPokemon}
-              handleIsCaught={handleIsCaught}
               handleCatch={handleCatch}
               togglePokemonToRemove={togglePokemonToRemove}
               pokemonsToRemove={pokemonsToRemove}
               updateNote={updateNote}
+              IsCaught={handleIsCaught ? handleIsCaught(pokemon.name) : false}
             />
           ))}
         </div>

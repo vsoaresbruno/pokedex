@@ -1,10 +1,10 @@
 import React from 'react'
 import { TYPE_COLORS } from '@/utils/constants'
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/services/InterfacePokeApiClient'
 import '../css/PokemonDetail.css'
 
 interface PokemonDetailProps {
-  pokemon: IPokemonDetail
+  pokemon: IPokemons
   onClose: () => void
 }
 
@@ -12,8 +12,8 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon, onClose }) => {
   let pokemonCapturedAt
   if (!pokemon) return null
 
-  if (pokemon.capturedAt) {
-    const date = new Date(pokemon.capturedAt)
+  if (pokemon.pokemonDetails.capturedAt) {
+    const date = new Date(pokemon.pokemonDetails.capturedAt)
     pokemonCapturedAt = date.toLocaleString()
   }
 
@@ -24,13 +24,13 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon, onClose }) => {
       </button>
       <img
         className="pokemon-detail__image"
-        src={pokemon.sprites.front_default}
+        src={pokemon.pokemonDetails.sprites.front_default}
         alt={pokemon.name}
       />
-      <h1 className="pokemon-detail__id">#{pokemon.id}</h1>
+      <h1 className="pokemon-detail__id">#{pokemon.pokemonDetails.id}</h1>
       <h2 className="pokemon-detail__title">{pokemon.name}</h2>
       <div className="pokemon-detail__section">
-        {pokemon.capturedAt && (
+        {pokemonCapturedAt && (
           <div>
             <p className="pokemon-detail__subtitle">Captured at</p>
             <p className="pokemon-detail__text">{pokemonCapturedAt}</p>
@@ -39,7 +39,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon, onClose }) => {
       </div>
       <div className="pokemon-detail__section">
         <ul className="pokemon-detail__list-types">
-          {pokemon.types.map((type, index) => (
+          {pokemon.pokemonDetails.types.map((type, index) => (
             <li
               key={index}
               className="pokemon-detail__types"
@@ -55,18 +55,22 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon, onClose }) => {
         <div className="pokemon-detail__abilities">
           <div className="pokemon-detail__ability">
             <b className="pokemon-detail__subtitle">Height</b>
-            <div className="pokemon-detail__tags ">{pokemon.height / 10}m</div>
+            <div className="pokemon-detail__tags ">
+              {pokemon.pokemonDetails.height / 10}m
+            </div>
           </div>
           <div className="pokemon-detail__ability">
             <b className="pokemon-detail__subtitle">Weight</b>
-            <div className="pokemon-detail__tags ">{pokemon.weight / 10}kg</div>
+            <div className="pokemon-detail__tags ">
+              {pokemon.pokemonDetails.weight / 10}kg
+            </div>
           </div>
         </div>
       </div>
       <div className="pokemon-detail__section">
         <h4>Stats</h4>
         <ul className="pokemon-detail__stats">
-          {pokemon.stats.map((stat, index) => (
+          {pokemon.pokemonDetails.stats.map((stat, index) => (
             <li key={index}>
               {stat.stat.name}: {stat.base_stat}
             </li>

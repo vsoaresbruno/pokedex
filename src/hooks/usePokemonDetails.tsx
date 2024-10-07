@@ -1,10 +1,8 @@
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/services/InterfacePokeApiClient'
 import { useState } from 'react'
 
-export const usePokemonDetails = (pokemonDetails: IPokemonDetail[]) => {
-  const [selectedPokemon, setSelectedPokemon] = useState<IPokemonDetail | null>(
-    null
-  )
+export const usePokemonDetails = (pokemonDetails: IPokemons[]) => {
+  const [selectedPokemon, setSelectedPokemon] = useState<IPokemons | null>(null)
   const handleSelectPokemon = (name: string) => {
     const pokemon = pokemonDetails.find((p) => p.name === name)
     setSelectedPokemon(pokemon || null)

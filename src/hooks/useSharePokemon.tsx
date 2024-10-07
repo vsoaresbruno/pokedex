@@ -1,16 +1,18 @@
 interface ISharePokemon {
-  id: number
   name: string
-  sprites: {
-    front_default: string
+  pokemonDetails: {
+    id: number
+    sprites: {
+      front_default: string
+    }
   }
 }
 export const useSharePokemon = (pokemon: ISharePokemon) => {
   const generatePokemonMessage = (pokemon: ISharePokemon) => {
-    const { id, name, sprites } = pokemon
+    const { name, pokemonDetails } = pokemon
 
-    const message = `I caught \n\n#${id} - ${name}\n! check out!`
-    const imageLink = sprites.front_default
+    const message = `I caught \n\n#${pokemonDetails.id} - ${name}\n! check out!`
+    const imageLink = pokemonDetails.sprites.front_default
 
     return `${message}\n${imageLink}`
   }

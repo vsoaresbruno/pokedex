@@ -19,6 +19,7 @@ export interface IPokemonList {
   count: number
 }
 export interface IPokemonDetail {
+  capturedAt: any
   id: number
   name: string
   sprites: {
@@ -39,8 +40,12 @@ export interface IPokemonDetail {
     }
   }[]
 }
-
 export interface ICaughtPokemonDetail extends IPokemonDetail {
   capturedAt: string
   note: string
+}
+
+export interface IPokemons {
+  name: string
+  pokemonDetails: IPokemonDetail
 }

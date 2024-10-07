@@ -2,12 +2,12 @@ import React, { createContext, useState, useEffect } from 'react'
 import { getAllPokemons, addPokemon, removePokemon } from '../services/db'
 
 import { pokeApiClient } from '../services/PokeApiClient'
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/services/InterfacePokeApiClient'
 
 export interface IPokemonContext {
   totalPokemonCount: number
   caughtPokemonCount: number
-  addCaughtPokemon: (pokemon: IPokemonDetail) => void
+  addCaughtPokemon: (pokemon: IPokemons) => void
   releasePokemon: (pokemonName: string) => void
   caughtPokemonProgress: string
 }
@@ -15,7 +15,7 @@ export interface IPokemonContext {
 export const PokemonContext = createContext<IPokemonContext>({
   totalPokemonCount: 0,
   caughtPokemonCount: 0,
-  addCaughtPokemon: (pokemon: IPokemonDetail): void => {},
+  addCaughtPokemon: (pokemon: IPokemons): void => {},
   releasePokemon: (pokemon: string): void => {},
   caughtPokemonProgress: '',
 })
@@ -36,7 +36,7 @@ export const PokemonProvider = ({
     setCaughtPokemonCount(caughtPokemons.length)
   }
 
-  const addCaughtPokemon = async (pokemon: IPokemonDetail) => {
+  const addCaughtPokemon = async (pokemon: IPokemons) => {
     await addPokemon(pokemon)
     await loadCaughtPokemons()
   }

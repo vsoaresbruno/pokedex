@@ -1,4 +1,4 @@
-import { IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/services/InterfacePokeApiClient'
 import { initDB } from '../services/db'
 
 const STORE_NAME = 'caughtPokemons'
@@ -19,8 +19,9 @@ export const exportPokemonAsCSV = async () => {
     'ID, Name, Type, Height, Weight, HP, Attack, Defense, Special Attack, Special Defense, Speed, Captured At',
   ]
 
-  allPokemons.forEach((pokemon: IPokemonDetail) => {
-    const { id, name, capturedAt, types, height, weight, stats } = pokemon
+  allPokemons.forEach((pokemon: IPokemons) => {
+    const { id, name, capturedAt, types, height, weight, stats } =
+      pokemon.pokemonDetails
 
     const statsValues: Record<string, number> = {}
     stats.forEach((stat: { stat: { name: string }; base_stat: number }) => {

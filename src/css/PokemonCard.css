@@ -27,3 +27,9 @@
 .pokemon-card__content {
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .pokemon-card {
+    max-width: 100%;
+  }
+}
