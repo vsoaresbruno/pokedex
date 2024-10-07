@@ -40,7 +40,7 @@ export interface IPokemonDetail {
   }[]
 }
 
-export interface ICapturedPokemonDetail extends IPokemonDetail {
+export interface ICaughtPokemonDetail extends IPokemonDetail {
   capturedAt: string
   note: string
 }

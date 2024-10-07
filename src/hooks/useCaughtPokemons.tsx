@@ -1,4 +1,4 @@
-import { ICapturedPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { ICaughtPokemonDetail } from '@/services/InterfacePokeApiClient'
 import { PokemonContext } from '@/context/PokemonContext'
 import { getAllPokemons, updatePokemonNote } from '@/services/db'
 import { useState, useEffect, useContext } from 'react'
@@ -15,13 +15,13 @@ type FilterOptions = {
 export const useCaughtPokemons = () => {
   const { releasePokemon } = useContext(PokemonContext)
 
-  const [caughtPokemons, setCaughtPokemons] = useState<
-    ICapturedPokemonDetail[]
-  >([])
+  const [caughtPokemons, setCaughtPokemons] = useState<ICaughtPokemonDetail[]>(
+    []
+  )
   const [pokemonsToRemove, setPokemonsToRemove] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [filteredPokemons, setFilteredPokemons] = useState<
-    ICapturedPokemonDetail[]
+    ICaughtPokemonDetail[]
   >([])
   const [sortOption, setSortOption] = useState<SortOption>('name')
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
@@ -76,8 +76,8 @@ export const useCaughtPokemons = () => {
   }
 
   const sortPokemons = (
-    pokemons: ICapturedPokemonDetail[]
-  ): ICapturedPokemonDetail[] => {
+    pokemons: ICaughtPokemonDetail[]
+  ): ICaughtPokemonDetail[] => {
     return pokemons.sort((a, b) => {
       if (sortOption === 'name') {
         const comparison = a.name.localeCompare(b.name)

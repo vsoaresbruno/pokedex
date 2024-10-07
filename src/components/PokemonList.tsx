@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import PokemonDetail from './PokemonDetail'
 import { usePokemonDetails } from '../hooks/usePokemonDetails'
 import { PokemonCard } from './PokemonCard'
@@ -25,6 +26,8 @@ export const PokemonList = ({
   const { handleSelectPokemon, handleCloseDetail, selectedPokemon } =
     usePokemonDetails(pokemonList)
 
+  const AsyncPokemonDetail = lazy(() => import('./PokemonDetail'))
+
   return (
     <>
       {pokemonsToRemove && pokemonsToRemove.length > 0 && (
@@ -48,10 +51,12 @@ export const PokemonList = ({
           ))}
         </div>
         {selectedPokemon && (
-          <PokemonDetail
-            pokemon={selectedPokemon}
-            onClose={handleCloseDetail}
-          />
+          <Suspense fallback="Loading...">
+            <AsyncPokemonDetail
+              pokemon={selectedPokemon}
+              onClose={handleCloseDetail}
+            />
+          </Suspense>
         )}
       </div>
     </>

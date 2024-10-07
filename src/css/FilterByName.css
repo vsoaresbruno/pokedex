@@ -1,0 +1,10 @@
+.search-box {
+  min-width: 100%;
+  padding: 1em;
+  margin-bottom: 24px;
+  background-color: white;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #ff5350;
+}
