@@ -2,7 +2,9 @@
   position: relative;
   max-width: 250px;
   background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   border-radius: 10px;
   padding: 2em;
 }
@@ -16,6 +18,7 @@
   text-transform: capitalize;
   font-weight: bold;
   color: #0f222f;
+  margin-bottom: 12px;
 }
 
 .pokemon-card__image {
@@ -26,6 +29,20 @@
 
 .pokemon-card__content {
   cursor: pointer;
+}
+
+.pokemon-card__actions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 12px;
+}
+
+.pokemon-card__note {
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  padding: 5px;
+  color: #000;
 }
 
 @media screen and (max-width: 768px) {

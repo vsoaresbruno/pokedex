@@ -1,5 +1,5 @@
 import { vi, describe, it, beforeEach, expect } from 'vitest'
-import { IPokemons, IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons, IPokemonDetail } from '@/types/InterfacePokemons'
 import { usePokemonFilters } from '../usePokemonFilters'
 
 describe('usePokemonFilters', () => {

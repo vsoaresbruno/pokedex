@@ -14,8 +14,8 @@ export const Pokemons = () => {
   return (
     <div>
       <h1>Pokémons List</h1>
-      {status === 'loading' && <p>Carregando...</p>}
-      {status === 'error' && <p>Ocorreu um erro ao carregar os dados</p>}
+      {status === 'loading' && <p>Loading Pokémons..</p>}
+      {status === 'error' && <p>Error to load Pokémons</p>}
       {status === 'success' && (
         <div>
           <PokemonList
@@ -28,7 +28,7 @@ export const Pokemons = () => {
             ref={loadMoreRef}
             style={{ height: '20px', background: 'transparent' }}
           />
-          {isFetchingNextPage && <p>Carregando mais...</p>}
+          {isFetchingNextPage && <p>Loading more Pokémons</p>}
         </div>
       )}
     </div>

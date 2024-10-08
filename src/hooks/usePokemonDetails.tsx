@@ -1,4 +1,4 @@
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 import { useState } from 'react'
 
 export const usePokemonDetails = (pokemonDetails: IPokemons[]) => {

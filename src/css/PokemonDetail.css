@@ -1,5 +1,5 @@
 .pokemon-detail {
-  top: 10em;
+  top: 5em;
   height: fit-content;
   min-width: 20%;
   position: sticky;
@@ -107,6 +107,7 @@
     position: fixed;
     top: 0;
     margin-top: 0;
+    z-index: 4;
   }
   .pokemon-detail__image {
     position: initial;

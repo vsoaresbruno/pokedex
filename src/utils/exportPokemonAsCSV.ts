@@ -1,4 +1,4 @@
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 import { initDB } from '../services/db'
 
 const STORE_NAME = 'caughtPokemons'

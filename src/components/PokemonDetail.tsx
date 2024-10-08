@@ -1,6 +1,6 @@
 import React from 'react'
 import { TYPE_COLORS } from '@/utils/constants'
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 import '../css/PokemonDetail.css'
 
 interface PokemonDetailProps {

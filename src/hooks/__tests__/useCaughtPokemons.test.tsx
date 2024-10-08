@@ -1,7 +1,7 @@
 import { vi, describe, it, beforeEach, expect, afterEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import { IPokemons, IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons, IPokemonDetail } from '@/types/InterfacePokemons'
 import { useCaughtPokemons } from '../useCaughtPokemons'
 import { getAllPokemons, updatePokemonNote } from '../../services/db'
 import { PokemonContext } from '../../context/PokemonContext'

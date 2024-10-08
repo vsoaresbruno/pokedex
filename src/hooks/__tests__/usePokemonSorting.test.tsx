@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, expect } from 'vitest'
 import { usePokemonSorting } from '../usePokemonSorting'
-import { IPokemons, IPokemonDetail } from '@/services/InterfacePokeApiClient'
+import { IPokemons, IPokemonDetail } from '@/types/InterfacePokemons'
 
 describe('usePokemonSorting', () => {
   let mockCaughtPokemons: IPokemons[]

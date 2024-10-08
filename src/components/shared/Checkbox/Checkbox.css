@@ -1,0 +1,221 @@
+.checkbox-wrapper *,
+.checkbox-wrapper *::before,
+.checkbox-wrapper *::after {
+  box-sizing: border-box;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  color: #ff4742;
+  font-weight: bold;
+  cursor: pointer;
+}
+.checkbox-label span {
+  margin-left: 8px;
+}
+
+.checkbox-wrapper .plus-minus {
+  --primary: #ff4742;
+  --secondary: #fafbff;
+  --duration: 0.5s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 240px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--primary);
+  background-size: 300% 300%;
+  transition: transform 0.3s;
+  transform: scale(var(--scale, 1)) translateZ(0);
+  -webkit-animation: var(--name, unchecked) var(--duration) ease forwards;
+  animation: var(--name, unchecked) var(--duration) ease forwards;
+  margin: 0;
+}
+.checkbox-wrapper .plus-minus::before,
+.checkbox-wrapper .plus-minus::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: var(--height, 16px);
+  left: 4px;
+  top: var(--top, 4px);
+  background: var(--background, var(--primary));
+  -webkit-animation: var(--name-icon-b, var(--name-icon, unchecked-icon))
+    var(--duration) ease forwards;
+  animation: var(--name-icon-b, var(--name-icon, unchecked-icon))
+    var(--duration) ease forwards;
+}
+.checkbox-wrapper .plus-minus::before {
+  -webkit-clip-path: polygon(
+    0 4.5px,
+    4.5px 4.5px,
+    4.5px 0,
+    7.5px 0,
+    7.5px 4.5px,
+    12px 4.5px,
+    12px 7.5px,
+    7.5px 7.5px,
+    7.5px 12px,
+    4.5px 12px,
+    4.5px 7.5px,
+    0 7.5px
+  );
+  clip-path: polygon(
+    0 4.5px,
+    4.5px 4.5px,
+    4.5px 0,
+    7.5px 0,
+    7.5px 4.5px,
+    12px 4.5px,
+    12px 7.5px,
+    7.5px 7.5px,
+    7.5px 12px,
+    4.5px 12px,
+    4.5px 7.5px,
+    0 7.5px
+  );
+}
+.checkbox-wrapper .plus-minus::after {
+  --height: 3px;
+  --top: 9px;
+  --background: var(--secondary);
+  --name-icon-b: var(--name-icon-a, checked-icon);
+}
+.checkbox-wrapper .plus-minus:active {
+  --scale: 0.95;
+}
+.checkbox-wrapper .plus-minus:checked {
+  --name: checked;
+  --name-icon-b: checked-icon;
+  --name-icon-a: unchecked-icon;
+}
+
+@-webkit-keyframes checked-icon {
+  from {
+    transform: translateZ(12px);
+  }
+  to {
+    transform: translateX(16px) rotateY(90deg) translateZ(12px);
+  }
+}
+
+@keyframes checked-icon {
+  from {
+    transform: translateZ(12px);
+  }
+  to {
+    transform: translateX(16px) rotateY(90deg) translateZ(12px);
+  }
+}
+@-webkit-keyframes unchecked-icon {
+  from {
+    transform: translateX(-16px) rotateY(-90deg) translateZ(12px);
+  }
+  to {
+    transform: translateZ(12px);
+  }
+}
+@keyframes unchecked-icon {
+  from {
+    transform: translateX(-16px) rotateY(-90deg) translateZ(12px);
+  }
+  to {
+    transform: translateZ(12px);
+  }
+}
+@-webkit-keyframes checked {
+  from {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--primary) 0%,
+      var(--primary) 25%,
+      var(--secondary) 25.1%,
+      var(--secondary) 100%
+    );
+    background-position: 100% 50%;
+  }
+  to {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--primary) 0%,
+      var(--primary) 25%,
+      var(--secondary) 25.1%,
+      var(--secondary) 100%
+    );
+    background-position: 50% 50%;
+  }
+}
+@keyframes checked {
+  from {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--primary) 0%,
+      var(--primary) 25%,
+      var(--secondary) 25.1%,
+      var(--secondary) 100%
+    );
+    background-position: 100% 50%;
+  }
+  to {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--primary) 0%,
+      var(--primary) 25%,
+      var(--secondary) 25.1%,
+      var(--secondary) 100%
+    );
+    background-position: 50% 50%;
+  }
+}
+@-webkit-keyframes unchecked {
+  from {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--secondary) 0%,
+      var(--secondary) 25%,
+      var(--primary) 25.1%,
+      var(--primary) 100%
+    );
+    background-position: 100% 50%;
+  }
+  to {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--secondary) 0%,
+      var(--secondary) 25%,
+      var(--primary) 25.1%,
+      var(--primary) 100%
+    );
+    background-position: 50% 50%;
+  }
+}
+@keyframes unchecked {
+  from {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--secondary) 0%,
+      var(--secondary) 25%,
+      var(--primary) 25.1%,
+      var(--primary) 100%
+    );
+    background-position: 100% 50%;
+  }
+  to {
+    background-image: radial-gradient(
+      ellipse at center,
+      var(--secondary) 0%,
+      var(--secondary) 25%,
+      var(--primary) 25.1%,
+      var(--primary) 100%
+    );
+    background-position: 50% 50%;
+  }
+}

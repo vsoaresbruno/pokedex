@@ -2,7 +2,7 @@ import {
   IAllPokemons,
   IPokemon,
   IPokemonDetail,
-} from './InterfacePokeApiClient'
+} from '../types/InterfacePokemons'
 
 class PokeApiClient {
   private baseURL = 'https://pokeapi.co/api/v2'

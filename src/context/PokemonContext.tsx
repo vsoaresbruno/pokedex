@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import { getAllPokemons, addPokemon, removePokemon } from '../services/db'
 
 import { pokeApiClient } from '../services/PokeApiClient'
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 
 export interface IPokemonContext {
   totalPokemonCount: number

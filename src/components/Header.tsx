@@ -19,7 +19,7 @@ export const Header = () => {
           className={`header__list-item ${isActive('/pokedex') ? 'header__list-item--active' : ''}`}
         >
           <Link to="/pokedex" title="Pokedex">
-            Pokedex
+            My Pokedex
           </Link>
         </li>
       </ul>

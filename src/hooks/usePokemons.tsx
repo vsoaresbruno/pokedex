@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import { useInfiniteQuery } from 'react-query'
 
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 import { pokeApiClient } from '../services/PokeApiClient'
 import { getAllPokemons } from '../services/db'
 import { PokemonContext } from '../context/PokemonContext'
@@ -21,7 +21,7 @@ export const usePokemons = () => {
   const handleCatch = async (pokemonName: string) => {
     try {
       const caughtPokemon = pokemonList.find(
-        (pokemon) => pokemon.name === pokemonName
+        (pokemon: IPokemons) => pokemon.name === pokemonName
       )
       if (caughtPokemon) {
         const capturedAt = new Date().toISOString()

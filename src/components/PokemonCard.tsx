@@ -1,5 +1,7 @@
 import { useSharePokemon } from '@/hooks/useSharePokemon'
 import '../css/PokemonCard.css'
+import { Button } from './shared/Button/Button'
+import { Checkebox } from './shared/Checkbox/Checkbox'
 interface IPokemonCard {
   pokemon: {
     name: string
@@ -47,31 +49,37 @@ export const PokemonCard = ({
           </p>
           <p className="pokemon-card__title">{name}</p>
         </div>
-        {handleCatch ? (
-          <>
-            <button
-              onClick={() => (IsCaught ? null : handleCatch(name))}
-              disabled={IsCaught}
-            >
-              Catch
-            </button>
-          </>
-        ) : (
+        {!handleCatch && (
           <textarea
+            className="pokemon-card__note"
             value={note}
             onChange={(e) => updateNote && updateNote(name, e.target.value)}
             placeholder="Add a note"
           />
         )}
-        <button onClick={handleShare}>Share on WhatsApp</button>
+        <div className="pokemon-card__actions">
+          {handleCatch && (
+            <Button
+              onClick={() => handleCatch(name)}
+              disabled={IsCaught}
+              variant="primary"
+            >
+              {IsCaught ? 'Caught' : 'Catch'}
+            </Button>
+          )}
 
-        {togglePokemonToRemove && pokemonsToRemove && (
-          <input
-            type="checkbox"
-            checked={pokemonsToRemove.includes(pokemon.name)}
-            onChange={() => togglePokemonToRemove(pokemon.name)}
-          />
-        )}
+          {togglePokemonToRemove && pokemonsToRemove && (
+            <Checkebox
+              checked={pokemonsToRemove.includes(pokemon.name)}
+              onChange={() => togglePokemonToRemove(pokemon.name)}
+            />
+          )}
+        </div>
+        <div className="pokemon-card__actions">
+          <Button onClick={handleShare} variant="secondary">
+            Share
+          </Button>
+        </div>
       </div>
     </>
   )

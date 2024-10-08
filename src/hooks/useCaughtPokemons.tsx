@@ -1,4 +1,4 @@
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemon, IPokemons } from '@/types/InterfacePokemons'
 import { PokemonContext } from '../context/PokemonContext'
 import { getAllPokemons, updatePokemonNote } from '../services/db'
 import { useState, useEffect, useContext } from 'react'
@@ -81,13 +81,18 @@ export const useCaughtPokemons = () => {
   }
 
   const updateNote = async (pokemonName: string, newNote: string) => {
-    const updatedPokemons = caughtPokemons.map((pokemon) => {
+    const updatedPokemons = caughtPokemons.map((pokemon: IPokemons) => {
       if (pokemon.name === pokemonName) {
-        return { ...pokemon, note: newNote }
+        return {
+          ...pokemon,
+          pokemonDetails: {
+            ...pokemon.pokemonDetails,
+            note: newNote,
+          },
+        }
       }
       return pokemon
     })
-
     setCaughtPokemons(updatedPokemons)
     await updatePokemonNote(pokemonName, newNote)
   }

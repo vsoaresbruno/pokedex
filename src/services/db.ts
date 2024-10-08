@@ -1,5 +1,5 @@
 import { openDB } from 'idb'
-import { ICaughtPokemons, IPokemons } from './InterfacePokemons'
+import { ICaughtPokemons, IPokemons } from '../types/InterfacePokemons'
 
 const DB_NAME = 'PokemonDB'
 const DB_VERSION = 2

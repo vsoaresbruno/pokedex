@@ -1,4 +1,4 @@
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 
 type SortOption = 'name' | 'height' | 'timestamp' | 'type'
 type SortDirection = 'asc' | 'desc'

@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
-import { IPokemons } from '@/services/InterfacePokeApiClient'
+import { IPokemons } from '@/types/InterfacePokemons'
 import { usePokemonDetails } from '../hooks/usePokemonDetails'
 import { PokemonCard } from './PokemonCard'
 import '../css/PokemonList.css'
+import { Button } from './shared/Button/Button'
 interface IPokemonListProps {
   pokemonList: IPokemons[]
   handleIsCaught?: (name: string) => boolean
@@ -28,11 +29,6 @@ export const PokemonList = ({
   const AsyncPokemonDetail = lazy(() => import('./PokemonDetail'))
   return (
     <>
-      {pokemonsToRemove && pokemonsToRemove.length > 0 && (
-        <button onClick={removeSelectedPokemons}>
-          Remove Selected Pokémons
-        </button>
-      )}
       <div className="wrapper">
         <div className="pokemon-list">
           {pokemonList.map((pokemon, index) => (
@@ -48,6 +44,15 @@ export const PokemonList = ({
             />
           ))}
         </div>
+        {pokemonsToRemove &&
+          pokemonsToRemove.length > 0 &&
+          removeSelectedPokemons && (
+            <div className="pokemon-list__remove-pokemon-button">
+              <Button onClick={removeSelectedPokemons}>
+                Remove selected Pokémons
+              </Button>
+            </div>
+          )}
         {selectedPokemon && (
           <Suspense fallback="Loading...">
             <AsyncPokemonDetail
