@@ -17,7 +17,6 @@ export const CaughtPokemons = () => {
     setFilter,
     setSort,
     updateNote,
-    sortDirection,
     setSortDirection,
   } = useCaughtPokemons()
 
@@ -26,11 +25,7 @@ export const CaughtPokemons = () => {
       <FilterByName setFilter={setFilter} />
       <h1>My Pokedex</h1>
       <p>{caughtPokemonProgress}</p>
-      <SortPokemons
-        setSort={setSort}
-        setSortDirection={setSortDirection}
-        sortDirection={sortDirection}
-      />
+      <SortPokemons setSort={setSort} setSortDirection={setSortDirection} />
       <FilterByTypes setFilter={setFilter} />
 
       <PokemonList

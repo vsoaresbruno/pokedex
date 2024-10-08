@@ -1,12 +1,12 @@
-import { IPokemon, IPokemons } from '@/types/InterfacePokemons'
+import { IPokemons } from '@/types/InterfacePokemons'
 import { PokemonContext } from '../context/PokemonContext'
 import { getAllPokemons, updatePokemonNote } from '../services/db'
 import { useState, useEffect, useContext } from 'react'
 import { usePokemonFilters } from './usePokemonFilters'
 import { usePokemonSorting } from './usePokemonSorting'
 
-type SortOption = 'name' | 'height' | 'timestamp' | 'type'
-type SortDirection = 'asc' | 'desc'
+export type SortOption = 'name' | 'height' | 'timestamp' | 'type'
+export type SortDirection = 'asc' | 'desc'
 type FilterOptions = {
   name?: string
   height?: { min?: number; max?: number }

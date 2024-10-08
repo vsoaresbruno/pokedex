@@ -18,3 +18,9 @@
 .type-checkbox.selected {
   opacity: 1;
 }
+
+.type-checkbox--clear-filter {
+  border: 1px solid #cccccc;
+  color: #000;
+  cursor: pointer;
+}

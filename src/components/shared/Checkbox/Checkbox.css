@@ -6,17 +6,17 @@
 
 .checkbox-label {
   display: inline-flex;
-  color: #ff4742;
+  color: var(--primary-color);
   font-weight: bold;
   cursor: pointer;
 }
 .checkbox-label span {
-  margin-left: 8px;
+  margin-left: var(--spacing-small);
 }
 
 .checkbox-wrapper .plus-minus {
-  --primary: #ff4742;
-  --secondary: #fafbff;
+  --primary: var(--primary-color);
+  --secondary: #fff;
   --duration: 0.5s;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -29,8 +29,8 @@
   transform-style: preserve-3d;
   perspective: 240px;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: var(--spacing-large);
+  height: var(--spacing-large);
   border: 2px solid var(--primary);
   background-size: 300% 300%;
   transition: transform 0.3s;

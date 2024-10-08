@@ -1,31 +1,37 @@
+import { SortDirection, SortOption } from '@/hooks/useCaughtPokemons'
+import { Dropdown } from './shared/Dropdown/Dropdown'
+
 interface ISortPokemon {
-  setSortDirection: (sortDirection: 'asc' | 'desc') => void
-  setSort: (
-    sortOption: 'name' | 'height' | 'timestamp' | 'type',
-    sortDirection: 'asc' | 'desc'
-  ) => void
-  sortDirection: 'asc' | 'desc'
+  setSortDirection: (sortDirection: SortDirection) => void
+  setSort: (sortOption: SortOption, sortDirection: SortDirection) => void
 }
 
-export const SortPokemons = ({
-  setSortDirection,
-  setSort,
-  sortDirection,
-}: ISortPokemon) => {
-  const handleSort = (sortOption: 'name' | 'height' | 'timestamp' | 'type') => {
-    const newDirection = sortDirection === 'asc' ? 'desc' : 'asc'
-    setSortDirection(newDirection)
-    setSort(sortOption, newDirection)
+export const SortPokemons = ({ setSortDirection, setSort }: ISortPokemon) => {
+  const handleSort = (sortOption: SortOption, sortDirection: SortDirection) => {
+    setSortDirection(sortDirection)
+    setSort(sortOption, sortDirection)
   }
+  const sortOptions = [
+    { label: 'Name Asc', value: 'name-asc' },
+    { label: 'Name Desc', value: 'name-desc' },
+    { label: 'Height Asc', value: 'height-asc' },
+    { label: 'Height Desc', value: 'height-desc' },
+    { label: 'Timestamp Asc', value: 'timestamp-asc' },
+    { label: 'Timestamp Desc', value: 'timestamp-desc' },
+    { label: 'Type Asc', value: 'type-asc' },
+    { label: 'Type Desc', value: 'type-desc' },
+  ]
 
   return (
-    <div>
-      <button onClick={() => handleSort('name')}>
-        Sort by Name ({sortDirection === 'asc' ? 'Desc' : 'Asc'})
-      </button>
-      <button onClick={() => handleSort('height')}>Sort by Height</button>
-      <button onClick={() => handleSort('timestamp')}>Sort by Timestamp</button>
-      <button onClick={() => handleSort('type')}>Sort by Type</button>
-    </div>
+    <label>
+      Sorting by:{' '}
+      <Dropdown
+        options={sortOptions}
+        onChange={(e) => {
+          const [sortOption, sortDirection] = e.target.value.split('-')
+          handleSort(sortOption as SortOption, sortDirection as SortDirection)
+        }}
+      />
+    </label>
   )
 }

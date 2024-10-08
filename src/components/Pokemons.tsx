@@ -24,10 +24,7 @@ export const Pokemons = () => {
             handleCatch={handleCatch}
           />
 
-          <div
-            ref={loadMoreRef}
-            style={{ height: '20px', background: 'transparent' }}
-          />
+          <div ref={loadMoreRef} />
           {isFetchingNextPage && <p>Loading more Pokémons</p>}
         </div>
       )}

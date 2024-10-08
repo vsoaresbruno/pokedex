@@ -32,7 +32,7 @@
 }
 
 .pokemon-detail__section {
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-large);
 }
 
 .pokemon-detail__close {
@@ -72,7 +72,7 @@
   padding: 0;
   display: flex;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-large);
 }
 
 .pokemon-detail__abilities {
@@ -100,7 +100,7 @@
   padding: 1px 12px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--medias-screen-small)) {
   .pokemon-detail {
     height: 100%;
     width: 100%;

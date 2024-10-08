@@ -54,7 +54,7 @@ export const PokemonList = ({
             </div>
           )}
         {selectedPokemon && (
-          <Suspense fallback="Loading...">
+          <Suspense fallback="">
             <AsyncPokemonDetail
               pokemon={selectedPokemon}
               onClose={handleCloseDetail}

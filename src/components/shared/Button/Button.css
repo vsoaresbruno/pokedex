@@ -21,8 +21,8 @@
 }
 
 .button--primary {
-  background: #ff4742;
-  border: 1px solid #ff4742;
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
   color: #ffffff;
 }
 
@@ -30,20 +30,20 @@
 .button--primary:active {
   background-color: #ffffff;
   background-position: 0 0;
-  color: #ff4742;
+  color: var(--primary-color);
 }
 
 .button--primary:active,
 .button--primary:disabled {
   opacity: 0.5;
   background-color: #ffffff;
-  color: #ff4742;
+  color: var(--primary-color);
   cursor: not-allowed;
 }
 
 .button--secondary {
-  background: #128c7e;
-  border: 1px solid #128c7e;
+  background: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
   color: #ffffff;
 }
 
@@ -51,13 +51,13 @@
 .button--secondary:active {
   background-color: #ffffff;
   background-position: 0 0;
-  color: #128c7e;
+  color: var(--secondary-color);
 }
 
 .button--secondary:active,
 .button--secondary:disabled {
   opacity: 0.5;
   background-color: #ffffff;
-  color: #128c7e;
+  color: var(--secondary-color);
   cursor: not-allowed;
 }

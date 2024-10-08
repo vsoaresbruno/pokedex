@@ -38,13 +38,8 @@ export const FilterByTypes = ({ setFilter }: IFilterByTypes) => {
         </label>
       ))}
       <label
-        className="type-checkbox clear-filter"
+        className=" type-checkbox type-checkbox--clear-filter"
         onClick={clearFilter}
-        style={{
-          border: '1px solid #CCCCCC',
-          color: '#000',
-          cursor: 'pointer',
-        }}
       >
         All types
       </label>

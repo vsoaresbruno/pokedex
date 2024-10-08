@@ -5,7 +5,7 @@
   height: fit-content;
   min-width: 100%;
   padding: 2em;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-large);
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -25,7 +25,7 @@
   color: #ff5350;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: var(--medias-screen-small)) {
   .header {
     padding: 1em;
   }

@@ -1,7 +1,7 @@
 .search-box {
   min-width: 100%;
   padding: 1em;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-large);
   background-color: white;
   border-radius: 10px;
   border: none;
