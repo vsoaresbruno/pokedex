@@ -16,8 +16,8 @@ export interface IPokemonContext {
 export const PokemonContext = createContext<IPokemonContext>({
   totalPokemonCount: 0,
   caughtPokemonCount: 0,
-  addCaughtPokemon: (pokemon: IPokemons): void => {},
-  releasePokemon: (pokemon: string): void => {},
+  addCaughtPokemon: (): void => {},
+  releasePokemon: (): void => {},
   caughtPokemonProgress: '',
   percentageProgress: 0,
 })

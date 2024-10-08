@@ -1,4 +1,4 @@
-import { vi, describe, it, beforeEach, expect } from 'vitest'
+import { describe, it, beforeEach, expect } from 'vitest'
 import { IPokemons, IPokemonDetail } from '@/types/InterfacePokemons'
 import { usePokemonFilters } from '../usePokemonFilters'
 
