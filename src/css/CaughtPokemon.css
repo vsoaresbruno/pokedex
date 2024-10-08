@@ -10,3 +10,14 @@
   flex-direction: column;
   align-items: flex-start;
 }
+
+@media screen and (max-width: 768px) {
+  .caught-pokemon__header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .caught-pokemon__title {
+    margin-bottom: var(--spacing-medium);
+  }
+}

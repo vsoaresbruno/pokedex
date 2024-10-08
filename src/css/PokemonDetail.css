@@ -46,7 +46,7 @@
   padding: 1px 3px;
   background: #eaecf0;
   cursor: pointer;
-  color: #242424;
+  color: var(--text-dark);
   font-size: 1em;
   font-weight: bold;
 }
@@ -100,7 +100,7 @@
   padding: 1px 12px;
 }
 
-@media (max-width: var(--medias-screen-small)) {
+@media (max-width: 768px) {
   .pokemon-detail {
     height: 100%;
     width: 100%;

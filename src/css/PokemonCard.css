@@ -37,15 +37,7 @@
   margin-top: 12px;
 }
 
-.pokemon-card__note {
-  width: 100%;
-  background: #fff;
-  border-radius: 6px;
-  padding: 5px;
-  color: #000;
-}
-
-@media screen and (max-width: var(--medias-screen-small)) {
+@media (max-width: 768px) {
   .pokemon-card {
     max-width: 100%;
   }

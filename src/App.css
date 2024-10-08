@@ -6,15 +6,16 @@
   --spacing-medium: 16px;
   --spacing-large: 24px;
   --spacing-xlarge: 32px;
-  --medias-screen-small: 768px;
-  --medias-screen-medium: 992px;
+  --mobile-breakpoint: 768px;
+  --tablet-breakpoint: 992px;
+  --text-dark: #242424;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #242424;
+  color: var(--text-dark);
   background-color: #f6f8fc;
 
   font-synthesis: none;

@@ -18,13 +18,13 @@
   z-index: 3;
 }
 
-@media (max-width: var(--medias-screen-medium)) {
+@media (max-width: 992px) {
   .pokemon-list {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas para telas menores */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: var(--medias-screen-small)) {
+@media (max-width: 768px) {
   .pokemon-list {
     grid-template-columns: 1fr;
     min-width: 50%;

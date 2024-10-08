@@ -2,6 +2,7 @@ import { useSharePokemon } from '@/hooks/useSharePokemon'
 import '../css/PokemonCard.css'
 import { Button } from './shared/Button/Button'
 import { Checkebox } from './shared/Checkbox/Checkbox'
+import { Textarea } from './shared/Textarea/Textarea'
 interface IPokemonCard {
   pokemon: {
     name: string
@@ -50,8 +51,7 @@ export const PokemonCard = ({
           <p className="pokemon-card__title">{name}</p>
         </div>
         {!handleCatch && (
-          <textarea
-            className="pokemon-card__note"
+          <Textarea
             value={note}
             onChange={(e) => updateNote && updateNote(name, e.target.value)}
             placeholder="Add a note"

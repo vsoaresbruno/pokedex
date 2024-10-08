@@ -21,6 +21,6 @@
 
 .type-checkbox--clear-filter {
   border: 1px solid #cccccc;
-  color: #000;
+  color: var(--text-dark);
   cursor: pointer;
 }
