@@ -1,0 +1,12 @@
+.caught-pokemon__header {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--spacing-xlarge) 0;
+  align-items: baseline;
+}
+
+.caught-pokemon__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

@@ -10,6 +10,7 @@ export interface IPokemonContext {
   addCaughtPokemon: (pokemon: IPokemons) => void
   releasePokemon: (pokemonName: string) => void
   caughtPokemonProgress: string
+  percentageProgress: number
 }
 // Create Context
 export const PokemonContext = createContext<IPokemonContext>({
@@ -18,6 +19,7 @@ export const PokemonContext = createContext<IPokemonContext>({
   addCaughtPokemon: (pokemon: IPokemons): void => {},
   releasePokemon: (pokemon: string): void => {},
   caughtPokemonProgress: '',
+  percentageProgress: 0,
 })
 
 export const PokemonProvider = ({
@@ -27,6 +29,7 @@ export const PokemonProvider = ({
 }) => {
   const [totalPokemonCount, setTotalPokemonCount] = useState<number>(0)
   const [caughtPokemonCount, setCaughtPokemonCount] = useState<number>(0)
+  const [percentageProgress, setPercentageProgress] = useState<number>(0)
   const [caughtPokemonProgress, setCaughtPokemonProgress] =
     useState<string>('0/0 - 0%')
 
@@ -50,6 +53,7 @@ export const PokemonProvider = ({
     const percentage =
       totalPokemonCount > 0 ? (caughtPokemonCount / totalPokemonCount) * 100 : 0
     const progress = `${caughtPokemonCount}/${totalPokemonCount} - ${percentage.toFixed(1)}%`
+    setPercentageProgress(+percentage.toFixed(1))
     setCaughtPokemonProgress(progress)
   }
 
@@ -71,6 +75,7 @@ export const PokemonProvider = ({
         addCaughtPokemon,
         releasePokemon,
         caughtPokemonProgress,
+        percentageProgress,
       }}
     >
       {children}

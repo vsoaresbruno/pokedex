@@ -1,13 +1,15 @@
 import { useContext } from 'react'
 import { useCaughtPokemons } from '@/hooks/useCaughtPokemons'
-import { PokemonList } from './PokemonList'
 import { PokemonContext } from '../context/PokemonContext'
+import { PokemonList } from './PokemonList'
 import { FilterByTypes } from './FilterByTypes'
 import { FilterByName } from './FilterByName'
 import { SortPokemons } from './SortPokemons'
+import '../css/CaughtPokemon.css'
 
 export const CaughtPokemons = () => {
-  const { caughtPokemonProgress } = useContext(PokemonContext)
+  const { percentageProgress, caughtPokemonCount, totalPokemonCount } =
+    useContext(PokemonContext)
 
   const {
     removeSelectedPokemons,
@@ -22,10 +24,23 @@ export const CaughtPokemons = () => {
 
   return (
     <>
+      <div className="caught-pokemon__header">
+        <div className="caught-pokemon__title">
+          <h1>My Pokedex</h1>
+          <p>
+            My progress:{' '}
+            <b>
+              {caughtPokemonCount} of {totalPokemonCount}{' '}
+            </b>
+            Pokemons - {percentageProgress}%
+          </p>
+        </div>
+        <div className="caught-pokemon__sorting">
+          <SortPokemons setSort={setSort} setSortDirection={setSortDirection} />
+        </div>
+      </div>
       <FilterByName setFilter={setFilter} />
-      <h1>My Pokedex</h1>
-      <p>{caughtPokemonProgress}</p>
-      <SortPokemons setSort={setSort} setSortDirection={setSortDirection} />
+
       <FilterByTypes setFilter={setFilter} />
 
       <PokemonList
