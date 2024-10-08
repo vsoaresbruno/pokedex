@@ -1,10 +1,9 @@
 import { openDB } from 'idb'
-import { IPokemons } from './InterfacePokeApiClient'
+import { ICaughtPokemons, IPokemons } from './InterfacePokemons'
 
 const DB_NAME = 'PokemonDB'
 const DB_VERSION = 2
 const CAUGHT_POKEMON = 'caughtPokemons'
-const OFFSET = 'offset'
 
 export const initDB = async () => {
   try {
@@ -12,9 +11,6 @@ export const initDB = async () => {
       upgrade(db) {
         if (!db.objectStoreNames.contains(CAUGHT_POKEMON)) {
           db.createObjectStore(CAUGHT_POKEMON, { keyPath: 'name' })
-        }
-        if (!db.objectStoreNames.contains(OFFSET)) {
-          db.createObjectStore(OFFSET, { keyPath: 'currentOffset' })
         }
       },
     })
@@ -38,7 +34,7 @@ export const getAllPokemons = async () => {
   const db = await initDB()
   const tx = db.transaction(CAUGHT_POKEMON, 'readonly')
   const store = tx.objectStore(CAUGHT_POKEMON)
-  const allPokemons = await store.getAll()
+  const allPokemons: ICaughtPokemons[] = await store.getAll()
   await tx.done
   return allPokemons
 }
@@ -56,34 +52,12 @@ export const updatePokemonNote = async (pokemonName: string, note: string) => {
   const tx = db.transaction(CAUGHT_POKEMON, 'readwrite')
   const store = tx.objectStore(CAUGHT_POKEMON)
 
-  const pokemon = await store.get(pokemonName)
+  const pokemon: ICaughtPokemons = await store.get(pokemonName)
 
   if (pokemon) {
-    pokemon.note = note
+    pokemon.pokemonDetails.note = note
     await store.put(pokemon)
   }
 
   await tx.done
-}
-
-export const saveOffset = async (offset: number) => {
-  try {
-    const db = await initDB()
-    const tx = db.transaction(OFFSET, 'readwrite')
-    const store = tx.objectStore(OFFSET)
-    await store.put({ key: 'currentOffset', value: offset })
-    await tx.done
-    console.log('Offset salvo:', offset)
-  } catch (error) {
-    console.error('Erro ao salvar o offset:', error)
-  }
-}
-
-export const getOffset = async () => {
-  const db = await initDB()
-  const tx = db.transaction(OFFSET, 'readonly')
-  const store = tx.objectStore(OFFSET)
-  const currentOffset = await store.get('currentOffset')
-  await tx.done
-  return currentOffset?.value || 0
 }

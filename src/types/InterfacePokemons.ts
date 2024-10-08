@@ -49,3 +49,8 @@ export interface IPokemons {
   name: string
   pokemonDetails: IPokemonDetail
 }
+
+export interface ICaughtPokemons {
+  name: string
+  pokemonDetails: ICaughtPokemonDetail
+}
